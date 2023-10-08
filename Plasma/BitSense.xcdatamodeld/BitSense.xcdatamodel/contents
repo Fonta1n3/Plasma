@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Nodes" representedClassName="Nodes" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="nodeId" optional="YES" attributeType="Binary"/>
+        <attribute name="port" optional="YES" attributeType="String"/>
+        <attribute name="rune" optional="YES" attributeType="Binary"/>
+    </entity>
+</model>
