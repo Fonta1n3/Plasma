@@ -4,6 +4,25 @@
 Plasma acts like a lightning node to issue commands directly to your node over the lightning network. Thanks to [@jb55](https://github.com/jb55)
 for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this possible. For more information about LNSocket check out this [video](https://www.youtube.com/watch?v=LZLRCPNn7vA).
 
+⚠️ Plasma is in beta!
+
+## Features
+- LNSocket/LNLink for connectiong to your node
+- Bolt12 send/receive
+- Bolt11 send/receive
+- Taproot addresses for onchain deposits
+- Onchain send and receive
+- Payment history
+- Onchain UTXOs
+- Add channels
+- Rebalance channels
+
+Todo:
+- Bypass the onchain wallet with psbt's when creating channels.
+- Coin control when spending from onchain wallet.
+- Fee settings for onchain wallet.
+
+
 ## Build Plasma from source
 <br/><img src="./Images/build_from_source.png" alt="" width="400"/><br/>
 * Download Xcode
@@ -94,7 +113,7 @@ If you are an open source project, please [contact us](mailto:dentondevelopment@
 
 ### Cost for End Users
 
-Downloading the Plasma iOS app is **100% free** because it is important that all people around the world have unrestricted access to a private, self sovereign means of using Bitcoin.
+Downloading the Plasma iOS app is **free** because it is important that all people around the world have unrestricted access to a private, self sovereign means of using Bitcoin.
 However, developing and supporting this project is hard work and costs real money. Please help support the development of this project!
 
 * [GitHub Sponsors](https://github.com/sponsors/fonta1n3)
@@ -102,7 +121,7 @@ However, developing and supporting this project is hard work and costs real mone
 
 ## PGP
 
-* Peter Denton (new): 1C72 2776 3647 A221 6E02  E539 025E 9AD2 D3AC 0FCA
+* 1C72 2776 3647 A221 6E02 E539 025E 9AD2 D3AC 0FCA
 
 
 ## License
