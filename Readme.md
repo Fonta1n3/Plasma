@@ -24,7 +24,7 @@ Todo:
 
 
 ## Build Plasma from source
-<br/><img src="./Images/build_from_source.png" alt="" width="400"/><br/>
+
 * Download Xcode
 * `git clone https://github.com/Fonta1n3/Plasma.git`
 * `cd Plasma`
