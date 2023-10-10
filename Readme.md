@@ -7,7 +7,7 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 ⚠️ Plasma is in beta!
 
 ## Features
-- LNSocket/LNLink for connectiong to your node
+- LNSocket/LNLink for connecting to your node
 - Bolt12 send/receive
 - Bolt11 send/receive
 - Taproot addresses for onchain deposits
@@ -17,14 +17,15 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 - Add channels
 - Rebalance channels
 
-Todo:
+## Todo:
 - Bypass the onchain wallet with psbt's when creating channels.
 - Coin control when spending from onchain wallet.
 - Fee settings for onchain wallet.
+- Onchain transaction history.
+- Transaction detail view.
 
 
 ## Build Plasma from source
-
 * Download Xcode
 * `git clone https://github.com/Fonta1n3/Plasma.git`
 * `cd Plasma`
@@ -126,7 +127,7 @@ However, developing and supporting this project is hard work and costs real mone
 
 ## License
 
-MIT
+GPL 3.0
 "Commons Clause" License Condition v1.0
 
 If you would like to relicense this code to distribute it on the App Store,
