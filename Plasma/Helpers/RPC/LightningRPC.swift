@@ -15,7 +15,6 @@ class LightningRPC {
     var ln: LNSocket?
     let default_timeout: Int32 = 8000
     
-    
     private init() {
         ln = LNSocket()
     }

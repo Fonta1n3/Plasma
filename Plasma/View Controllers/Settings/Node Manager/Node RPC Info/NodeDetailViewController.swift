@@ -16,6 +16,7 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
     var createNew = Bool()
     var newNode = [String:Any]()
     var isInitialLoad = Bool()
+    var lnlink = ""
 
     
     @IBOutlet weak var portField: UITextField!
@@ -54,6 +55,25 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
     }
     
     
+    @IBAction func shareAction(_ sender: Any) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let address = addressField.text ?? ""
+            let port = portField.text ?? ""
+            let host = address + ":" + port
+            let nodeId = nodeIdField.text ?? ""
+            let rune = runeField.text ?? ""
+            let base64UrlSafe = base64ToBase64url(base64: rune)
+            guard let url = URL(string: "lnlink:" + nodeId + "@" + host + "?token=" + base64UrlSafe) else {
+                showAlert(vc: self, title: "", message: "Invalid url string.")
+                return
+            }
+            lnlink = url.absoluteString
+            performSegue(withIdentifier: "segueToExportNode", sender: self)
+        }
+    }
+        
     
     @IBAction func pasteAction(_ sender: Any) {
         guard let url = UIPasteboard.general.string else {
@@ -301,6 +321,16 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
         }
     }
     
+    
+    private func base64ToBase64url(base64: String) -> String {
+        let base64url = base64
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "=", with: "%3D")
+        return base64url
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToScanNodeCreds" {
             guard let vc = segue.destination as? QRScannerViewController else { return }
@@ -313,6 +343,12 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
                 populateFields(node: node)
             }
         }
+        
+        if segue.identifier == "segueToExportNode" {
+            guard let vc = segue.destination as? QRDisplayerViewController else { return }
+            
+            vc.headerText = "LNLink \(nodeLabel.text ?? "")"
+            vc.text = lnlink
+        }
     }
-    
 }

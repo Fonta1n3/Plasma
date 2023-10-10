@@ -48,7 +48,7 @@
         <!--Transactions-->
         <scene sceneID="brO-BN-cOK">
             <objects>
-                <viewController id="Dwu-lj-4IN" customClass="ActiveWalletViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Dwu-lj-4IN" customClass="ActiveWalletViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vmz-O4-mSm">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -214,7 +214,7 @@
         <!--Wallet View Controller-->
         <scene sceneID="VHY-nS-Y1Y">
             <objects>
-                <viewController id="mll-4F-qso" customClass="WalletViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mll-4F-qso" customClass="WalletViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wLi-kE-xdw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -533,7 +533,7 @@
         <!--Displayer View Controller-->
         <scene sceneID="Uym-uj-rYU">
             <objects>
-                <viewController storyboardIdentifier="QRDisplayer" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GlR-4A-eAx" customClass="QRDisplayerViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRDisplayer" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GlR-4A-eAx" customClass="QRDisplayerViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Ax-bN-O8E">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -622,7 +622,7 @@
         <!--Scanner View Controller-->
         <scene sceneID="BJl-28-zDt">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="HJc-Yu-EXJ" customClass="QRScannerViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="HJc-Yu-EXJ" customClass="QRScannerViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FoJ-De-qVl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -706,7 +706,7 @@
         <!--Request-->
         <scene sceneID="aU3-2L-A1l">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Xxg-Pp-vvN" customClass="InvoiceViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Xxg-Pp-vvN" customClass="InvoiceViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eUN-hK-8St">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -837,7 +837,7 @@
         <!--Create Raw Tx View Controller-->
         <scene sceneID="nPC-E2-jSN">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="pUo-bf-sNm" customClass="CreateRawTxViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="pUo-bf-sNm" customClass="CreateRawTxViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DIN-Fg-EH6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -984,7 +984,7 @@
         <!--Nodes-->
         <scene sceneID="iSc-Eo-e8H">
             <objects>
-                <viewController storyboardIdentifier="NodeManager" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FrY-WR-Inf" customClass="NodesViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NodeManager" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FrY-WR-Inf" customClass="NodesViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IRJ-OV-pqW">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1076,7 +1076,7 @@
         <!--Security Center View Controller-->
         <scene sceneID="PNj-5X-XaN">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Jmi-bN-zgj" customClass="SecurityCenterViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Jmi-bN-zgj" customClass="SecurityCenterViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kzC-ve-Ytf">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1152,7 +1152,7 @@
         <!--Password-->
         <scene sceneID="kuN-Nq-0VK">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="bWB-tp-pgw" customClass="AppPasswordViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="bWB-tp-pgw" customClass="AppPasswordViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rbo-Xj-SVe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1207,7 +1207,7 @@
         <!--Node Detail View Controller-->
         <scene sceneID="79C-6o-WJP">
             <objects>
-                <viewController storyboardIdentifier="NodeDetail" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B99-yZ-naR" customClass="NodeDetailViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NodeDetail" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B99-yZ-naR" customClass="NodeDetailViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B9e-yr-KMo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1323,6 +1323,11 @@
                                     <action selector="pasteAction:" destination="B99-yZ-naR" id="qLF-8c-gRs"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem image="square.and.arrow.up" catalog="system" id="1xW-UG-ka5">
+                                <connections>
+                                    <action selector="shareAction:" destination="B99-yZ-naR" id="x8d-6L-2xe"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -1332,7 +1337,7 @@
                         <outlet property="portField" destination="hG2-G9-vy2" id="8kY-WN-qRg"/>
                         <outlet property="runeField" destination="Ami-EO-d7p" id="Seb-sE-gHY"/>
                         <outlet property="saveButton" destination="p2J-sn-A5I" id="ZWz-y2-s1b"/>
-                        <segue destination="GlR-4A-eAx" kind="presentation" identifier="segueToExportNode" id="8MS-xS-DMP"/>
+                        <segue destination="GlR-4A-eAx" kind="show" identifier="segueToExportNode" id="8MS-xS-DMP"/>
                         <segue destination="HJc-Yu-EXJ" kind="presentation" identifier="segueToScanNodeCreds" id="07E-4w-Zh7"/>
                     </connections>
                 </viewController>
@@ -1343,7 +1348,7 @@
         <!--Node Info-->
         <scene sceneID="40T-jO-ErY">
             <objects>
-                <viewController id="u3j-cd-FEG" customClass="LightningNodeManagerViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u3j-cd-FEG" customClass="LightningNodeManagerViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lW0-pM-7bx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1433,7 +1438,7 @@
         <!--Create Channel-->
         <scene sceneID="ZYI-Ie-fm5">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Ccs-1J-WKN" customClass="AddPeerViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="Ccs-1J-WKN" customClass="AddPeerViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NUp-Zk-LeU">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1517,7 +1522,7 @@
         <!--Confirm Payment-->
         <scene sceneID="fKs-py-e7s">
             <objects>
-                <viewController id="Kdg-W7-roj" customClass="ConfirmLightningPaymentViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Kdg-W7-roj" customClass="ConfirmLightningPaymentViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nRP-I7-UOh">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1617,7 +1622,7 @@
         <!--Log In View Controller-->
         <scene sceneID="Ieg-P5-lGV">
             <objects>
-                <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogIn" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bKH-sI-MiM" customClass="LogInViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wt8-Mt-3Mi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1698,7 +1703,7 @@
         <!--Channels-->
         <scene sceneID="ZY3-1a-ipr">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="a32-zP-STg" customClass="LightningChannelsViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="a32-zP-STg" customClass="LightningChannelsViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U6Z-Ce-yTe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1924,7 +1929,7 @@
         <!--Settings v1.0.0-->
         <scene sceneID="bVL-7j-ACI">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="6bf-e7-B05" customClass="SettingsViewController" customModule="FullyNoded" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="6bf-e7-B05" customClass="SettingsViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6KI-FB-Wto">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2030,8 +2035,8 @@
         <segue reference="PUx-oH-geV"/>
         <segue reference="c4y-Xy-Roe"/>
         <segue reference="DLx-HT-rGm"/>
-        <segue reference="CQp-9r-70w"/>
-        <segue reference="ZGM-1A-IcN"/>
+        <segue reference="07E-4w-Zh7"/>
+        <segue reference="8MS-xS-DMP"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Settings" width="30" height="30"/>

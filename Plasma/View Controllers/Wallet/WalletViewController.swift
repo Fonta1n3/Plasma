@@ -89,11 +89,6 @@ class WalletViewController: UIViewController {
     }
     
     
-    @IBAction func infoAction(_ sender: Any) {
-    }
-    
-    
-    
     private func setIcon() {
         let appIcon = UIButton(type: .custom)
         appIcon.setImage(UIImage(named: "plasma_icon.png"), for: .normal)
