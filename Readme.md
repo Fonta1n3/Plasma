@@ -4,7 +4,7 @@
 Plasma acts like a lightning node to issue commands directly to your node over the lightning network. Thanks to [@jb55](https://github.com/jb55)
 for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this possible. For more information about LNSocket check out this [video](https://www.youtube.com/watch?v=LZLRCPNn7vA).
 
-⚠️ Plasma is in beta!
+⚠️ Plasma is in beta! It requires Core Lightning v23.08.1.
 
 ## Features
 - LNSocket/LNLink for connecting to your node
@@ -23,6 +23,7 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 - Fee settings for onchain wallet.
 - Onchain transaction history.
 - Transaction detail view.
+- Test rebalancing, it is probably broken.
 
 
 ## Build Plasma from source
