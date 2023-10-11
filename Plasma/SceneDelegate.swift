@@ -58,11 +58,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             topVC.restorationIdentifier != "LogIn" else {
                 return
         }
-        
         DispatchQueue.main.async {
             loginVC.modalPresentationStyle = .fullScreen
             topVC.present(loginVC, animated: true, completion: nil)
         }
+        
+        loginVC.onDoneBlock = { [weak self] in
+            guard let self = self else { return }
+            
+            //prevents a crash
+        }
+        
+        
         #endif
     }
 
