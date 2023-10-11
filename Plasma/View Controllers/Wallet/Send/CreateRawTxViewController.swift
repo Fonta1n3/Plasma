@@ -11,7 +11,6 @@ import UIKit
 class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
 
     var fxRate = UserDefaults.standard.object(forKey: "fxRate") as? Double
-    //var amount = String()
     var txt = ""
     var invoice: DecodedInvoice?
     var invoiceString = ""
@@ -19,6 +18,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     var withdrawing = false
     var paying = false
     var onchainAmountAvailable = ""
+    var offchainSpendable = ""
     
     @IBOutlet weak private var invoiceAddressLabel: UILabel!
     @IBOutlet weak private var payOutlet: UIButton!
@@ -29,10 +29,10 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak private var playButtonOutlet: UIBarButtonItem!
     @IBOutlet weak private var amountInput: UITextField!
     @IBOutlet weak private var addressInput: UITextField!
-    @IBOutlet weak private var amountLabel: UILabel!
     @IBOutlet weak private var actionOutlet: UIButton!
     @IBOutlet weak private var scanOutlet: UIButton!
     @IBOutlet weak private var receivingLabel: UILabel!
+    @IBOutlet weak private var amountLabel: UILabel!
     
     var spinner = ConnectingView()
     
@@ -46,6 +46,12 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         if paying {
             lightningWithdrawOutlet.removeFromSuperview()
             invoiceAddressLabel.text = "Invoice or offer"
+            amountInput.alpha = 0.3
+            sweepButton.alpha = 0.3
+            amountLabel.alpha = 0.3
+            amountInput.isEnabled = false
+            sweepButton.isEnabled = false
+            
         }
         
         if withdrawing {
@@ -60,7 +66,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             getTotalSpendable()
         }
     }
-        
+
     
     @IBAction func pasteAction(_ sender: Any) {
         guard let item = UIPasteboard.general.string else { return }
@@ -84,7 +90,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         if let invoice = self.invoice {
             processInvoiceToPay(decoded: invoice, invoice: invoiceInput)
         } else {
-            decodeFromCL(invoiceInput)
+            decodeInvoice(invoiceInput)
         }
     }
     
@@ -96,7 +102,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
         
         if item.hasPrefix("lntb") || item.hasPrefix("lightning:") || item.hasPrefix("lnbc") || item.hasPrefix("lnbcrt") || item.hasPrefix("lno") {
-            decodeLighnting(invoice: item.replacingOccurrences(of: "lightning:", with: ""))
+            decodeInvoice(item.replacingOccurrences(of: "lightning:", with: ""))
         } else {
             promptWithdrawalLightning(item)
         }
@@ -131,12 +137,15 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                     
                     switch denomination() {
                     case "BTC":
-                        spendableString = Double(totalSpendable.msatToBtc)!.btcBalanceWithSpaces
+                        offchainSpendable = totalSpendable.msatToBtc
+                        spendableString =  Double(totalSpendable.msatToBtc)!.btcBalanceWithSpaces
                         
                     case "SATS":
+                        offchainSpendable = totalSpendable.msatToSat
                         spendableString = totalSpendable.msatToSat
                         
                     default:
+                        offchainSpendable = totalSpendable.msatToFiat!
                         spendableString = totalSpendable.msatToFiat!
                     }
                     
@@ -159,8 +168,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             var mess = "This action will withdraw the amount specified to the given address from your lightning wallet"
             
             if self.amountInput.text == "" || self.amountInput.text == "0" || self.amountInput.text == "0.0" {
-                title = "Withdraw ALL onchain funds from your ⚡️ wallet?\n"
-                mess = "This action will withdraw the TOTAL available onchain amount from your lightning internal onchain wallet to:\n\n\(recipient)"
+                title = "Withdraw ALL onchain funds?\n"
+                mess = "This action will withdraw the TOTAL available onchain amount to:\n\n\(recipient)"
             }
             
             let alert = UIAlertController(title: title, message: mess, preferredStyle: .alert)
@@ -333,11 +342,12 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    @IBAction func scanNow(_ sender: Any) {
+    @IBAction func scanAction(_ sender: Any) {
         DispatchQueue.main.async { [unowned vc = self] in
             vc.performSegue(withIdentifier: "segueToScannerToGetAddress", sender: vc)
         }
     }
+    
     
     func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -348,7 +358,22 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     // MARK: User Actions
     
     @IBAction func sweep(_ sender: Any) {
+        if withdrawing {
+            guard let recipient = addressInput.text, recipient != "" else {
+                showAlert(vc: self, title: "", message: "Input a recipient address first.")
+                return
+            }
+            
+            amountInput.text = "0"
+            promptWithdrawalLightning(recipient)
+        }
         
+        if paying {
+            showAlert(vc: self, title: "", message: "Plasma will attempt to send all available funds.")
+            amountInput.text = offchainSpendable
+            guard let invoice = addressInput.text, invoice != "" else { return }
+            decodeInvoice(invoice)
+        }
     }
     
     
@@ -387,13 +412,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Helpers
-    
-    private func decodeLighnting(invoice: String) {
-        spinner.addConnectingView(vc: self, description: "decoding lightning invoice...")
-        decodeFromCL(invoice)
-    }
-        
-    
     private func fetchInvoice(offer: String, amountMsat: Int) {
         // fetchinvoice offer [amount_msat] [quantity] [recurrence_counter] [recurrence_start] [recurrence_label] [timeout] [payer_note]
         var param:[String:String] = ["offer": offer]
@@ -408,11 +426,12 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            decodeFromCL(fetchInvoice.invoice)
+            decodeInvoice(fetchInvoice.invoice)
         }
     }
     
-    private func decodeFromCL(_ invoice: String) {
+    private func decodeInvoice(_ invoice: String) {
+        spinner.addConnectingView(vc: self, description: "decoding lightning invoice...")
         LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": invoice]) { [weak self] (decoded, errorDesc) in
             guard let self = self else { return }
             
@@ -454,14 +473,21 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             
         } else if decoded.invoiceAmountMsat != nil {
             promptToSendLightningPayment(invoice: invoice, decoded: decoded, msat: nil)
-                        
+            
         } else {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
                 guard let amountText = self.amountInput.text, amountText != "" else {
                     self.spinner.removeConnectingView()
-                    showAlert(vc: self, title: "No amount specified.", message: "You need to enter an amount to send for an invoice that does not include one.")
+                    self.addressInput.text = invoice
+                    self.amountInput.alpha = 1
+                    self.amountLabel.alpha = 1
+                    self.sweepButton.alpha = 1
+                    self.sweepButton.isEnabled = true
+                    self.amountInput.isEnabled = true
+                    
+                    showAlert(vc: self, title: "No amount specified by invoice.", message: "Enter an amount to pay to proceed.")
                     return
                 }
                 
@@ -477,42 +503,63 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func msatAmount(amountText: String) -> Int? {
-        let dblAmount = amountText.doubleValue
-        
-        guard dblAmount > 0.0 else {
-            self.spinner.removeConnectingView()
-            showAlert(vc: self, title: "No amount specified.", message: "You need to enter an amount to send for an invoice that does not include one.")
-            return nil
-        }
-        
         switch denomination() {
         case "BTC":
+            let dblAmount = amountText.doubleValue
+            
+            guard dblAmount > 0.0 else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "No amount specified.", message: "You need to enter an amount to send for an invoice that does not include one.")
+                return nil
+            }
             return Int(dblAmount * 100000000000.0)
+            
         case "SATS":
+            let dblAmount = amountText.doubleValue
+            
+            guard dblAmount > 0.0 else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "No amount specified.", message: "You need to enter an amount to send for an invoice that does not include one.")
+                return nil
+            }
             return Int(dblAmount * 1000.0)
+            
         default:
-            guard let fxRate = self.fxRate else { return nil }
-            let btcamount = rounded(number: dblAmount / fxRate)
-            return Int(btcamount * 100000000000.0)
+            if let doubeAmount = Double(amountText) {
+                guard let fxRate = self.fxRate else { return nil }
+                let btcamount = rounded(number: doubeAmount / fxRate)
+                return Int(btcamount * 100000000000.0)
+                
+            } else {
+                // Handles and currency symbols.
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .currency
+                
+                guard let number = formatter.number(from: amountText) else {
+                    showAlert(vc: self, title: "", message: "Error converting fiat string to number.")
+                    return nil
+                }
+                
+                guard let fxRate = self.fxRate else { return nil }
+                let btcamount = rounded(number: number.doubleValue / fxRate)
+                return Int(btcamount * 100000000000.0)
+            }
+            
         }
     }
     
     private func promptToSendLightningPayment(invoice: String, decoded: DecodedInvoice, msat: Int?) {
-        FiatConverter.sharedInstance.getFxRate { [weak self] fxRate in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                self.fxRate = fxRate
-                self.invoice = decoded
-                if let msat = msat {
-                    self.userSpecifiedAmount = msat
-                }
-                self.invoiceString = invoice
-                self.performSegue(withIdentifier: "segueToLightningConf", sender: self)
-            }
+        self.invoice = decoded
+        if let msat = msat {
+            userSpecifiedAmount = msat
         }
+        invoiceString = invoice
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return}
+            
+            performSegue(withIdentifier: "segueToLightningConf", sender: self)
+        }
+        
     }
     
     
@@ -635,7 +682,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                         
                         if potentialLightning.hasPrefix("lntb") || potentialLightning.hasPrefix("lightning:") || potentialLightning.hasPrefix("lnbc") || potentialLightning.hasPrefix("lnbcrt") || potentialLightning.hasPrefix("lno") {
                             
-                            decodeLighnting(invoice: potentialLightning)
+                            decodeInvoice(potentialLightning)
                         }
                     }
                 }
