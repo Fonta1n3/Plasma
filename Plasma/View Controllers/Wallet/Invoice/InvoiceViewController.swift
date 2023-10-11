@@ -212,7 +212,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
         }
         
         if expirySwitch.isOn {
-            let myTimeStamp = datePicker.date.timeIntervalSince1970
+            let myTimeStamp = datePicker.date.timeIntervalSinceNow
             param["expiry"] = "\(Int(myTimeStamp))"
         }
         

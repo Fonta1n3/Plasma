@@ -83,12 +83,14 @@ class ConfirmLightningPaymentViewController: UIViewController {
             }
             
             var expiry = ""
-            if let validUntil = invoice.expiry {
-                let expiryInt = validUntil
+            if let validUntil = invoice.expiry, let createdAt = invoice.createdAt {
+                let expiryInt = validUntil + createdAt
                 expiry = convertedDate(seconds: expiryInt)
             } else if let absoluteExpiry = invoice.offerAbsoluteExpiry {
                 expiry = convertedDate(seconds: absoluteExpiry)
             }
+            
+            print("expiry: \(expiry)")
             
             self.expiryLabel.text = expiry
             self.memoLabel.text = invoice.description ?? invoice.offerDescription ?? "No description."
