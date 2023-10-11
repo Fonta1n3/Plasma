@@ -7,7 +7,8 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 ⚠️ Plasma is in beta! It requires Core Lightning v23.08.1.
 
 ## Features
-- LNSocket/LNLink for connecting to your node
+- LNSocket/LNLink for connecting to your node.
+- Export LNLink for sharing your node (can be used with fine grained runes).
 - Bolt12 send/receive
 - Bolt11 send/receive
 - Taproot addresses for onchain deposits
@@ -24,7 +25,9 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 - Onchain transaction history.
 - Transaction detail view.
 - Test rebalancing, it is probably broken.
-- Try with websockets
+- Try with websockets.
+- Get Tor working.
+- SQL rpc for massive transaction history.
 
 
 ## Build Plasma from source

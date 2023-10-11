@@ -44,10 +44,6 @@
 		D02094F02257FB78002E8E7A /* FirstTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02094EF2257FB78002E8E7A /* FirstTime.swift */; };
 		D02094F3225936D2002E8E7A /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02094F2225936D2002E8E7A /* ConnectingView.swift */; };
 		D02152DC23666CB400AD9007 /* QuickConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02152DB23666CB400AD9007 /* QuickConnect.swift */; };
-		D0233F222361E68F0041FFBA /* KeyGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0233F212361E68F0041FFBA /* KeyGen.swift */; };
-		D0233F242361EA090041FFBA /* Base32.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0233F232361EA090041FFBA /* Base32.swift */; };
-		D0233F262361EA380041FFBA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0233F252361EA380041FFBA /* StringExtension.swift */; };
-		D0233F282361EA5F0041FFBA /* shim.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0233F272361EA5F0041FFBA /* shim.swift */; };
 		D0257E6524D6C5F5000EB854 /* LightningRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0257E6424D6C5F5000EB854 /* LightningRPC.swift */; };
 		D02958D5235053B300ED8F72 /* SecurityCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02958D4235053B300ED8F72 /* SecurityCenterViewController.swift */; };
 		D02FE43323136A600048F8C4 /* NodeLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02FE43223136A600048F8C4 /* NodeLogic.swift */; };
@@ -3744,7 +3740,6 @@
 				D039D3C823322F1300D1ED18 /* NodeStruct.swift in Sources */,
 				D093E2A725A59B9C0038B59A /* TransactionStruct.swift in Sources */,
 				0A3B39102ACF82A8009004BB /* OffchainTxs.swift in Sources */,
-				D0233F282361EA5F0041FFBA /* shim.swift in Sources */,
 				0AA7A60D2AD1CCD500E51A52 /* Withdraw.swift in Sources */,
 				0A3B39062ACE5773009004BB /* ListConfigs.swift in Sources */,
 				D0F3919424C0147400EA8A2A /* QRScannerViewController.swift in Sources */,
@@ -3767,17 +3762,14 @@
 				D0452ADD224743C50013E225 /* LogInViewController.swift in Sources */,
 				D082397B24DBDB330098D4F4 /* AddPeerViewController.swift in Sources */,
 				0A3B39022ACE4DC1009004BB /* Offer.swift in Sources */,
-				D0233F262361EA380041FFBA /* StringExtension.swift in Sources */,
 				0A59035A269B080700510626 /* ConfirmLightningPaymentViewController.swift in Sources */,
 				D082397924DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift in Sources */,
-				D0233F242361EA090041FFBA /* Base32.swift in Sources */,
 				0AA7A6172AD3243C00E51A52 /* Result.swift in Sources */,
 				0A3B38FE2ACE1816009004BB /* GetInfo.swift in Sources */,
 				0A4481BC2AB6A7A500D45CAD /* LNUrl.swift in Sources */,
 				0A3B39042ACE5456009004BB /* Invoice.swift in Sources */,
 				D08A92B5233C979600409D6E /* FiatConverter.swift in Sources */,
 				D0E51E5B226592C9005D1909 /* NodeDetailViewController.swift in Sources */,
-				D0233F222361E68F0041FFBA /* KeyGen.swift in Sources */,
 				0A4A79A62AB53C4900CA896C /* CLNRPC.swift in Sources */,
 				D0126FF622446E3800412629 /* InvoiceViewController.swift in Sources */,
 				0A4A75332AB3DD4E00CA896C /* Plasma.c in Sources */,

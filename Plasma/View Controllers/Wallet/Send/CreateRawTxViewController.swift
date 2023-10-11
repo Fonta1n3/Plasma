@@ -10,18 +10,11 @@ import UIKit
 
 class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
 
-    var index = 0
-    var isFiat = false
-    var isBtc = true
-    var isSats = false
-    var fxRate:Double?
-    var address = String()
-    var amount = String()
+    var fxRate = UserDefaults.standard.object(forKey: "fxRate") as? Double
+    //var amount = String()
     var txt = ""
-    let ud = UserDefaults.standard
     var invoice: DecodedInvoice?
     var invoiceString = ""
-    let fiatCurrency = UserDefaults.standard.object(forKey: "currency") as? String ?? "USD"
     var userSpecifiedAmount:Int?
     var withdrawing = false
     var paying = false
@@ -49,9 +42,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         amountInput.delegate = self
         addressInput.delegate = self
         addTapGesture()
-        if address != "" {
-            addAddress(address)
-        }
         
         if paying {
             lightningWithdrawOutlet.removeFromSuperview()
@@ -200,21 +190,21 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         
         let amountString = amountInput.text ?? ""
         let dblAmount = amountString.doubleValue
+        let fiatCurrency = UserDefaults.standard.object(forKey: "currency") as? String ?? "USD"
         
         if amount > 0.0 {
-            if isFiat {
+            switch denomination() {
+            case "BTC":
+                sats = Int(amount * 100000000.0)
+                title = "Withdraw \(amount.avoidNotation) btc (\(sats) sats) from lightning wallet to \(address)?"
+            case "SATS":
+                sats = Int(dblAmount)
+                title = "Withdraw \(dblAmount) sats from lightning wallet to \(address)?"
+            default:
                 guard let fxRate = fxRate else { return }
                 let btcamount = rounded(number: amount / fxRate)
                 sats = Int(btcamount * 100000000.0)
                 title = "Withdraw $\(dblAmount) \(fiatCurrency) (\(sats) sats) from lightning wallet to \(address)?"
-                
-            } else if isSats {
-                sats = Int(dblAmount)
-                title = "Withdraw \(dblAmount) sats from lightning wallet to \(address)?"
-                
-            } else {
-                sats = Int(amount * 100000000.0)
-                title = "Withdraw \(amount.avoidNotation) btc (\(sats) sats) from lightning wallet to \(address)?"
             }
         } else {
             sats = 0
@@ -495,16 +485,15 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             return nil
         }
         
-        if self.isFiat {
+        switch denomination() {
+        case "BTC":
+            return Int(dblAmount * 100000000000.0)
+        case "SATS":
+            return Int(dblAmount * 1000.0)
+        default:
             guard let fxRate = self.fxRate else { return nil }
             let btcamount = rounded(number: dblAmount / fxRate)
             return Int(btcamount * 100000000000.0)
-            
-        } else if self.isSats {
-            return Int(dblAmount * 1000.0)
-            
-        } else {
-            return Int(dblAmount * 100000000000.0)
         }
     }
     
@@ -597,18 +586,13 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 if amount != nil {
                     amountText = amount!.avoidNotation
                     self.amountInput.text = amountText
-                    self.isFiat = false
-                    self.isBtc = true
-                    self.isSats = false
-                    self.ud.set("btc", forKey: "unit")
-                    //self.btcEnabled()
+                    UserDefaults.standard.set("BTC", forKey: "denomination")
                 }
                 
-                showAlert(vc: self, title: "BIP21 Invoice\n", message: "Address: \(address)\n\nAmount: \(amountText) btc\n\nLabel: " + (label ?? "no label") + "\n\nMessage: \((message ?? "no message"))")
+                showAlert(vc: self, title: "BIP21 Invoice\nThis automatically sets the denomination to BTC.", message: "Address: \(address)\n\nAmount: \(amountText) btc\n\nLabel: " + (label ?? "no label") + "\n\nMessage: \((message ?? "no message"))")
             }
         }
     }
-    
     
         
     func textFieldDidBeginEditing(_ textField: UITextField) {

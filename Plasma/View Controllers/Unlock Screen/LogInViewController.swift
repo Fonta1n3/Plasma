@@ -170,7 +170,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func unlock() {
-        let _ = KeyChain.set("2.0".dataUsingUTF8StringEncoding, forKey: "TimeToDisable")
+        let _ = KeyChain.set("2.0".utf8, forKey: "TimeToDisable")
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             
@@ -202,7 +202,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
         guard let hexData = hashedPassword.hex else { return }
 
-        /// Overwrite users password with the hash of the password, sorry I did not do this before...
         if password == retrievedPassword {
             let _ = KeyChain.set(hexData, forKey: "UnlockPassword")
             unlock()
@@ -218,7 +217,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     addResetPassword()
                 }
 
-                guard KeyChain.set("\(timeToDisable)".dataUsingUTF8StringEncoding, forKey: "TimeToDisable") else {
+                guard KeyChain.set("\(timeToDisable)".utf8, forKey: "TimeToDisable") else {
                     showAlert(vc: self, title: "Unable to set timeout", message: "This means something is very wrong, the device has probably been jailbroken or is corrupted")
                     return
                 }
