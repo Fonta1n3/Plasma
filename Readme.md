@@ -24,6 +24,7 @@ for developing [LNSocket](https://github.com/jb55/lnsocket) which makes this pos
 - Onchain transaction history.
 - Transaction detail view.
 - Test rebalancing, it is probably broken.
+- Try with websockets
 
 
 ## Build Plasma from source
