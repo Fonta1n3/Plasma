@@ -464,7 +464,6 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="info.circle" catalog="system"/>
                                 <connections>
-                                    <action selector="infoAction:" destination="mll-4F-qso" eventType="touchUpInside" id="uSx-1D-oug"/>
                                     <segue destination="u3j-cd-FEG" kind="show" id="hoV-aa-Sze"/>
                                 </connections>
                             </button>
@@ -856,49 +855,69 @@
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPR-ah-bEx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice or address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFC-7A-3Gn">
                                         <rect key="frame" x="0.0" y="60.33333333333335" width="361" height="20.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PmN-TL-5IA">
+                                        <rect key="frame" x="0.0" y="88.666666666666657" width="361" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vOa-19-8RX">
+                                                <rect key="frame" x="0.0" y="0.0" width="291.66666666666669" height="34"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRw-Do-rZb">
+                                                <rect key="frame" x="299.66666666666669" y="0.0" width="26" height="34"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="qrcode.viewfinder" catalog="system" symbolScale="large"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="scanAction:" destination="pUo-bf-sNm" eventType="touchUpInside" id="Yjw-EB-WNZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEt-TR-wOI">
+                                                <rect key="frame" x="333.66666666666669" y="0.0" width="27.333333333333314" height="34"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="doc.on.clipboard" catalog="system" symbolScale="large"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pasteAction:" destination="pUo-bf-sNm" eventType="touchUpInside" id="HNb-NX-WFg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPR-ah-bEx">
+                                        <rect key="frame" x="0.0" y="130.66666666666666" width="361" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MtX-Az-EvB">
-                                        <rect key="frame" x="0.0" y="88.666666666666657" width="361" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="159" width="361" height="34.333333333333343"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="WBT-v4-ipz">
-                                                <rect key="frame" x="0.0" y="0.0" width="268.66666666666669" height="34.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="310" height="34.333333333333336"/>
                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPZ-i4-CIL">
-                                                <rect key="frame" x="276.66666666666669" y="0.0" width="84.333333333333314" height="34.333333333333336"/>
+                                                <rect key="frame" x="318" y="0.0" width="43" height="34.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <state key="normal" title="Sweep"/>
-                                                <buttonConfiguration key="configuration" style="gray" title="Send all">
+                                                <buttonConfiguration key="configuration" style="gray" title="All">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sweep:" destination="pUo-bf-sNm" eventType="touchUpInside" id="MfD-fA-Tqw"/>
                                                 </connections>
                                             </button>
-                                        </subviews>
-                                    </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice or address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFC-7A-3Gn">
-                                        <rect key="frame" x="0.0" y="131" width="361" height="20.333333333333343"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                        <color key="textColor" systemColor="secondaryLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pUU-cz-DZ0">
-                                        <rect key="frame" x="0.0" y="159.33333333333331" width="361" height="34"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="vOa-19-8RX">
-                                                <rect key="frame" x="0.0" y="0.0" width="361" height="34"/>
-                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                            </textField>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ion-3y-Pqo">
@@ -945,29 +964,25 @@
                             <constraint firstItem="TQR-MC-WaO" firstAttribute="top" secondItem="C0H-pw-RSl" secondAttribute="top" constant="16" id="mTU-t2-pJq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Gt1-eH-cey">
-                        <rightBarButtonItems>
-                            <barButtonItem title="scan invoice" image="qrcode.viewfinder" catalog="system" id="bKr-tP-r4V">
+                    <toolbarItems>
+                        <barButtonItem style="plain" id="nPt-Sw-40l">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="FTc-X9-DAY">
+                                <rect key="frame" x="311" y="10.666666666666664" width="21" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" image="doc.on.clipboard" catalog="system"/>
                                 <connections>
-                                    <action selector="scanNow:" destination="pUo-bf-sNm" id="o7d-7Q-geJ"/>
+                                    <action selector="pasteAction:" destination="pUo-bf-sNm" eventType="touchUpInside" id="iR7-Wj-DOO"/>
                                 </connections>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="nPt-Sw-40l">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="FTc-X9-DAY">
-                                    <rect key="frame" x="311" y="10.666666666666664" width="21" height="23"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" image="doc.on.clipboard" catalog="system"/>
-                                    <connections>
-                                        <action selector="pasteAction:" destination="pUo-bf-sNm" eventType="touchUpInside" id="iR7-Wj-DOO"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                            </button>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="Gt1-eH-cey"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addressInput" destination="vOa-19-8RX" id="p5c-LC-6xw"/>
                         <outlet property="amountInput" destination="WBT-v4-ipz" id="4zO-8O-Q8c"/>
+                        <outlet property="amountLabel" destination="jPR-ah-bEx" id="6Gx-bV-F3b"/>
                         <outlet property="fxRateLabel" destination="Tft-x5-9Sa" id="diE-in-GEv"/>
                         <outlet property="invoiceAddressLabel" destination="PFC-7A-3Gn" id="mXE-wU-Y4q"/>
                         <outlet property="lightningWithdrawOutlet" destination="vCU-fw-O9h" id="ubx-pf-bKu"/>
@@ -2035,8 +2050,8 @@
         <segue reference="PUx-oH-geV"/>
         <segue reference="c4y-Xy-Roe"/>
         <segue reference="DLx-HT-rGm"/>
-        <segue reference="07E-4w-Zh7"/>
-        <segue reference="8MS-xS-DMP"/>
+        <segue reference="CQp-9r-70w"/>
+        <segue reference="ZGM-1A-IcN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Settings" width="30" height="30"/>

@@ -26,7 +26,6 @@
 		0A4A79A62AB53C4900CA896C /* CLNRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A79A52AB53C4900CA896C /* CLNRPC.swift */; };
 		0A590357269875CD00510626 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A590356269875CB00510626 /* Extensions.swift */; };
 		0A59035A269B080700510626 /* ConfirmLightningPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A590359269B080700510626 /* ConfirmLightningPaymentViewController.swift */; };
-		0A84821D2AC1146E0019ED6D /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A84821C2AC1146E0019ED6D /* Output.swift */; };
 		0A8482212ACA4EBE0019ED6D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8482202ACA4EBE0019ED6D /* WalletViewController.swift */; };
 		0AA7A60D2AD1CCD500E51A52 /* Withdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7A60C2AD1CCD500E51A52 /* Withdraw.swift */; };
 		0AA7A60F2AD1CE8A00E51A52 /* FetchInvoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7A60E2AD1CE8A00E51A52 /* FetchInvoice.swift */; };
@@ -1006,7 +1005,6 @@
 		0A4A79A52AB53C4900CA896C /* CLNRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLNRPC.swift; sourceTree = "<group>"; };
 		0A590356269875CB00510626 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0A590359269B080700510626 /* ConfirmLightningPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmLightningPaymentViewController.swift; sourceTree = "<group>"; };
-		0A84821C2AC1146E0019ED6D /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		0A8482202ACA4EBE0019ED6D /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		0AA7A60C2AD1CCD500E51A52 /* Withdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Withdraw.swift; sourceTree = "<group>"; };
 		0AA7A60E2AD1CE8A00E51A52 /* FetchInvoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInvoice.swift; sourceTree = "<group>"; };
@@ -3274,7 +3272,6 @@
 		0A643A1F274A4CB1007F4F44 /* Lightning */ = {
 			isa = PBXGroup;
 			children = (
-				0A84821C2AC1146E0019ED6D /* Output.swift */,
 				0A3B38FD2ACE1816009004BB /* GetInfo.swift */,
 				0A3B38FF2ACE4286009004BB /* ListFunds.swift */,
 				0A3B39012ACE4DC1009004BB /* Offer.swift */,
@@ -3747,7 +3744,6 @@
 				D02FE43323136A600048F8C4 /* NodeLogic.swift in Sources */,
 				D05D973422647CE60035F1DE /* QRGenerator.swift in Sources */,
 				0AA7A6112AD1D29300E51A52 /* Decode.swift in Sources */,
-				0A84821D2AC1146E0019ED6D /* Output.swift in Sources */,
 				D07AED042435B62B00C2FADB /* Entities.swift in Sources */,
 				0AA7A6132AD1F40E00E51A52 /* Pay.swift in Sources */,
 				0A3B390C2ACF8026009004BB /* ListSendPays.swift in Sources */,
