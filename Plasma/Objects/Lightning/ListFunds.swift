@@ -40,7 +40,8 @@ struct Channel: Codable {
 // MARK: - Output
 struct Output: Codable {
     let address: String
-    let amountMsat, blockheight, output: Int
+    let amountMsat, output: Int
+    let blockheight: Int?
     let reserved: Bool
     let scriptpubkey, status, txid: String
 

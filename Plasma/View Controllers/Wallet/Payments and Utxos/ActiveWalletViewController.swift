@@ -64,7 +64,6 @@ class ActiveWalletViewController: UIViewController {
         let amountLabel = cell.viewWithTag(2) as! UILabel
         let confirmationsLabel = cell.viewWithTag(3) as! UILabel
         let dateLabel = cell.viewWithTag(5) as! UILabel
-        let lightningImage = cell.viewWithTag(7) as! UIImageView
         let memoLabel = cell.viewWithTag(10) as! UILabel
         let index = indexPath.row
         let offchainTx = offchainTxs[index]
@@ -102,8 +101,18 @@ class ActiveWalletViewController: UIViewController {
             let balance = Balances(dictionary: amountDict)
             amountLabel.text = balance.onchainBalance
             confirmationsLabel.text = tx.status
-            amountLabel.textColor = .none
-            dateLabel.text = "Block \(tx.blockheight)"
+            if tx.status == "unconfirmed" {
+                amountLabel.textColor = .quaternaryLabel
+            } else {
+                amountLabel.textColor = .none
+            }
+            
+            if let block = tx.blockheight {
+                dateLabel.text = "Block \(block)"
+            } else {
+                dateLabel.text = "Pending..."
+            }
+            
         }
         return cell
     }

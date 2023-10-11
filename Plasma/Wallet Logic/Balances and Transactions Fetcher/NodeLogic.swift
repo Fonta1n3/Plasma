@@ -53,7 +53,9 @@ class FetchFunds {
             }
             
             for output in funds.outputs {
-                onchainMsatBalance += output.amountMsat
+                if output.status == "confirmed" {
+                    onchainMsatBalance += output.amountMsat
+                }
             }
                         
             balanceDict["offchainMsatBalance"] = offchainMsatBalance
