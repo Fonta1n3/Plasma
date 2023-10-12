@@ -20,7 +20,6 @@ public struct ResultObject: CustomStringConvertible {
             message = "Unable to decode data."
             return
         }
-        
         result = response["result"] as? [String: Any]
         error = response["error"] as? [String: Any]
         message = error?["message"] as? String

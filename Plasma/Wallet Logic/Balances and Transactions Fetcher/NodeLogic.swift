@@ -68,7 +68,7 @@ class FetchFunds {
     
     func getCLTransactions(completion: @escaping ((response: OffchainTxs?, errorMessage: String?)) -> Void) {
         var offchainTxs: OffchainTxs = []
-        LightningRPC.sharedInstance.command(method: .listsendpays, params: [:]) { [weak self] (listSendPays, errorDesc) in
+        LightningRPC.sharedInstance.command(method: .listsendpays, params: ["status":"complete"]) { [weak self] (listSendPays, errorDesc) in
             guard let self = self else { return }
             
             guard let listSendPays = listSendPays as? ListSendPays,
@@ -77,8 +77,9 @@ class FetchFunds {
                 return
             }
             
-            for (i, payment) in listSendPays.payments.enumerated() {
-                if payment.status != "failed" {
+            let lastHundred = listSendPays.payments.suffix(100)
+            
+            for (i, payment) in lastHundred.enumerated() {
                     let date = date(unixStamp: payment.createdAt)
                     let dateString = dateString(date: date)
                     let amount = amounts(amountMsat: payment.amountSentMsat)
@@ -92,12 +93,11 @@ class FetchFunds {
                         date: dateString,
                         description: payment.description ?? "",
                         sortDate: date
-                        
                     )
                     
                     offchainTxs.append(offChainTx)
-                }
-                if i + 1 == listSendPays.payments.count {
+                
+                if i + 1 == lastHundred.count {
                     getPaid(offchainTxs: offchainTxs, completion: completion)
                 }
             }
@@ -107,36 +107,37 @@ class FetchFunds {
     
     private func getPaid(offchainTxs: OffchainTxs, completion: @escaping ((response: OffchainTxs?, errorMessage: String?)) -> Void) {
         var offchainTxs: OffchainTxs = offchainTxs
-        LightningRPC.sharedInstance.command(method: .listinvoices, params: [:]) { [weak self] (listInvoices, errorDesc) in
+        LightningRPC.sharedInstance.command(method: .sql, params: ["query": "SELECT * FROM invoices WHERE 'paid' in (status)"]) { [weak self] (response, errorDesc) in
             guard let self = self else { return }
             
-            guard let listInvoices = listInvoices as? ListInvoices,
-                  listInvoices.invoices.count > 0 else {
-                offchainTxs = offchainTxs.sorted{ $0.sortDate > $1.sortDate }
-                completion((offchainTxs, nil))
+            guard let response = response as? [String: Any],
+                    let rows = response["rows"] as? [NSArray] else {
+                completion((nil, errorDesc ?? "Unknown error."))
                 return
             }
             
-            for (i, payment) in listInvoices.invoices.enumerated() {
-                if payment.status == "paid" {
-                    let date = date(unixStamp: payment.paidAt!)
+            let lastHundred = rows.suffix(100)
+            
+            for (i, payment) in lastHundred.enumerated() {
+                if payment[4] as! String == "paid" {
+                    let date = date(unixStamp: payment[15] as! Int)
                     let dateString = dateString(date: date)
-                    let amount = amounts(amountMsat: payment.amountReceivedMsat!)
+                    let amount = amounts(amountMsat: payment[14] as! Int)
                     
                     let offChainTx: OffchainTx = .init(
-                        bolt11: payment.bolt11 ?? "",
-                        bolt12: payment.bolt12 ?? "",
+                        bolt11: payment[7] as? String ?? "",
+                        bolt12: payment[8] as? String ?? "",
                         amount: amount,
-                        status: payment.status,
+                        status: payment[4] as! String,
                         type: "Received",
                         date: dateString,
-                        description: payment.description ?? "",
+                        description: payment[2] as? String ?? "",
                         sortDate: date
                     )
                     
                     offchainTxs.append(offChainTx)
                 }
-                if i + 1 == listInvoices.invoices.count {
+                if i + 1 == lastHundred.count {
                     offchainTxs = offchainTxs.sorted{ $0.sortDate > $1.sortDate }
                     completion((offchainTxs, nil))
                 }
