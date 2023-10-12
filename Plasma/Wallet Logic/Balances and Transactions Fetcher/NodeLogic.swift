@@ -111,8 +111,14 @@ class FetchFunds {
             guard let self = self else { return }
             
             guard let response = response as? [String: Any],
-                    let rows = response["rows"] as? [NSArray] else {
+                  let rows = response["rows"] as? [NSArray] else {
                 completion((nil, errorDesc ?? "Unknown error."))
+                return
+            }
+            
+            guard rows.count > 0 else {
+                offchainTxs = offchainTxs.sorted{ $0.sortDate > $1.sortDate }
+                completion((offchainTxs, nil))
                 return
             }
             
