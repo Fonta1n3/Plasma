@@ -25,7 +25,7 @@ struct PeerChannel: Codable {
     let ourToSelfDelay, dustLimitMsat, totalMsat: Int
     let closeTo: String
     let inOfferedMsat, outFulfilledMsat: Int
-    let shortChannelID: String
+    let shortChannelID: String?
     let stateChanges: [StateChange]
     let outPaymentsOffered, feeBaseMsat: Int
     //let htlcs: [JSONAny]
