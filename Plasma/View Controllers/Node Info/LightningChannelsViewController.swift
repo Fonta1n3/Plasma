@@ -10,8 +10,8 @@ import UIKit
 
 class LightningChannelsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var ours = [PeerChannel]()
-    var theirs = [PeerChannel]()
+    var ours: [PeerChannel] = []
+    var theirs: [PeerChannel] = []
     let spinner = ConnectingView()
     var activeChannels: [PeerChannel] = []
     var inactiveChannels: [PeerChannel] = []
@@ -113,7 +113,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
             let headerLabel = cell.viewWithTag(4) as! UILabel
             
             let channel = activeChannels[indexPath.row]
-            headerLabel.text = "ID: \(channel.shortChannelID)"
+            headerLabel.text = channel.peerID
             
             switch denomination() {
             case "BTC":
@@ -146,7 +146,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
             let cell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath)
             cell.selectionStyle = .none
             let channel = pendingChannels[indexPath.row]
-            cell.textLabel?.text = channel.channelID
+            cell.textLabel?.text = channel.peerID
             return cell
         } else {
             let blankCell = UITableViewCell()
@@ -161,7 +161,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
             let cell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath)
             cell.selectionStyle = .none
             let channel = inactiveChannels[indexPath.row]
-            cell.textLabel?.text = channel.channelID
+            cell.textLabel?.text = channel.peerID
             return cell
         } else {
             let blankCell = UITableViewCell()
@@ -507,8 +507,17 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
     private func chooseTheirsCounterpart()  {
         if theirs.count > 0 {
             let sortedArray = theirs.sorted { $0.receivableMsat < $1.receivableMsat }
-            let sourceShortId = selectedChannel!.shortChannelID
-            let destinationShortId = sortedArray[sortedArray.count - 1].shortChannelID
+            guard let sourceShortId = selectedChannel!.shortChannelID else {
+                spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to choose source, no short channel ID.")
+                return
+            }
+            
+            guard let destinationShortId = sortedArray[sortedArray.count - 1].shortChannelID else {
+                spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to choose destination, no short channel ID.")
+                return
+            }
             rebalance(sourceShortId, destinationShortId)
         }
     }
@@ -516,8 +525,19 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
     private func chooseOursCounterpart() {
         if ours.count > 0 {
             let sortedArray = ours.sorted { $0.spendableMsat < $1.spendableMsat }
-            let sourceShortId = sortedArray[ours.count - 1].shortChannelID
-            let destinationShortId = selectedChannel!.shortChannelID
+            
+            guard let sourceShortId = sortedArray[ours.count - 1].shortChannelID else {
+                spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to choose source, no short channel ID.")
+                return
+            }
+            
+            guard let destinationShortId = selectedChannel!.shortChannelID else {
+                spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to choose destination, no short channel ID.")
+                return
+            }
+            
             rebalance(sourceShortId, destinationShortId)
         }
     }
