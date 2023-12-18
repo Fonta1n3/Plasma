@@ -189,7 +189,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
         switch indexPath.section {
         case 0:
             if activeChannels.count > 0 {
-                return 122
+                return 133
             } else {
                 return 44
             }
