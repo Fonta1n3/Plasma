@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MJq-0Q-FMK">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
@@ -1543,7 +1543,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XM4-lp-w1a">
-                                <rect key="frame" x="16" y="103" width="361" height="299"/>
+                                <rect key="frame" x="16" y="102.99999999999997" width="361" height="435.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount to send:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9W-bQ-vWq">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
@@ -1610,22 +1610,55 @@
                                             <action selector="cancelAction:" destination="Kdg-W7-roj" eventType="touchUpInside" id="sCu-pQ-Ang"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="f6g-oQ-64X">
+                                        <rect key="frame" x="0.0" y="308" width="361" height="98.666666666666686"/>
+                                        <color key="tintColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="lJ1-p9-b8x"/>
+                                            <constraint firstAttribute="width" constant="100" id="qQX-mZ-Ev9"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment sent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6b-VH-UdH">
+                                        <rect key="frame" x="0.0" y="415" width="361" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beN-Wt-Z3d">
+                                <rect key="frame" x="16" y="665.66666666666663" width="361" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Done"/>
+                                <connections>
+                                    <action selector="doneAction:" destination="Kdg-W7-roj" eventType="touchUpInside" id="ogh-sK-zOX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lx7-wN-xFo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XM4-lp-w1a" firstAttribute="leading" secondItem="Lx7-wN-xFo" secondAttribute="leading" constant="16" id="1IR-Sh-ynd"/>
                             <constraint firstItem="XM4-lp-w1a" firstAttribute="top" secondItem="Lx7-wN-xFo" secondAttribute="top" id="F7i-fa-1aR"/>
+                            <constraint firstItem="beN-Wt-Z3d" firstAttribute="leading" secondItem="Lx7-wN-xFo" secondAttribute="leading" constant="16" id="ccn-Lu-DlF"/>
+                            <constraint firstItem="Lx7-wN-xFo" firstAttribute="trailing" secondItem="beN-Wt-Z3d" secondAttribute="trailing" constant="16" id="q8G-kF-G15"/>
+                            <constraint firstItem="Lx7-wN-xFo" firstAttribute="bottom" secondItem="beN-Wt-Z3d" secondAttribute="bottom" constant="20" id="qA7-EN-Mur"/>
                             <constraint firstItem="Lx7-wN-xFo" firstAttribute="trailing" secondItem="XM4-lp-w1a" secondAttribute="trailing" constant="16" id="ynz-tC-w5K"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Confirm Payment" id="rZa-JL-1vx"/>
                     <connections>
+                        <outlet property="amountHeader" destination="K9W-bQ-vWq" id="pS0-92-Xl7"/>
                         <outlet property="amountLabel" destination="LPk-cp-yF7" id="rA7-DY-bKX"/>
+                        <outlet property="cancelButton" destination="x0e-3F-UsP" id="2EV-am-uK2"/>
+                        <outlet property="checkMarkImage" destination="f6g-oQ-64X" id="s2C-oX-TJ3"/>
+                        <outlet property="descHeader" destination="inr-oj-oMV" id="22V-3p-j54"/>
+                        <outlet property="doneButton" destination="beN-Wt-Z3d" id="KtL-gc-arD"/>
+                        <outlet property="expiryHeader" destination="wMQ-wm-wpZ" id="99v-OX-Gdn"/>
                         <outlet property="expiryLabel" destination="PiH-lx-rzA" id="zWw-1H-ejJ"/>
                         <outlet property="memoLabel" destination="dIT-Fg-VoD" id="d7u-0f-3uM"/>
+                        <outlet property="paymentSentLabel" destination="j6b-VH-UdH" id="wUd-LH-p8X"/>
+                        <outlet property="recipientHeader" destination="lwi-Xt-bRV" id="0dM-sM-7ML"/>
                         <outlet property="recipientLabel" destination="OnW-xX-8zO" id="kTG-Os-WGP"/>
                         <outlet property="sendButton" destination="3qy-CI-bOa" id="BeA-jF-CGr"/>
                     </connections>
@@ -1964,7 +1997,7 @@
             </objects>
             <point key="canvasLocation" x="-7124.4274809160306" y="374.64788732394368"/>
         </scene>
-        <!--Settings v1.0.1-->
+        <!--Settings v1.0.3-->
         <scene sceneID="bVL-7j-ACI">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="6bf-e7-B05" customClass="SettingsViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
@@ -2055,7 +2088,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="DXZ-h2-krB"/>
-                    <navigationItem key="navigationItem" title="Settings v1.0.1" id="7pL-d9-IEb"/>
+                    <navigationItem key="navigationItem" title="Settings v1.0.3" id="7pL-d9-IEb"/>
                     <connections>
                         <outlet property="settingsTable" destination="sk0-2g-NzV" id="aMs-QI-rfg"/>
                         <segue destination="FrY-WR-Inf" kind="show" identifier="goToNodes" id="elX-uE-Zlb"/>
@@ -2080,6 +2113,7 @@
         <image name="Settings" width="30" height="30"/>
         <image name="arrowtriangle.right.and.line.vertical.and.arrowtriangle.left" catalog="system" width="128" height="93"/>
         <image name="bolt.fill" catalog="system" width="100" height="128"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="doc.on.clipboard" catalog="system" width="116" height="128"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
@@ -2101,6 +2135,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -46,10 +46,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         if paying {
             lightningWithdrawOutlet.removeFromSuperview()
             invoiceAddressLabel.text = "Invoice or offer"
-            amountInput.alpha = 0.3
             sweepButton.alpha = 0.3
-            amountLabel.alpha = 0.3
-            amountInput.isEnabled = false
             sweepButton.isEnabled = false
             
         }
@@ -430,6 +427,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
     private func decodeInvoice(_ invoice: String) {
         spinner.addConnectingView(vc: self, description: "decoding lightning invoice...")
         LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": invoice]) { [weak self] (decoded, errorDesc) in
@@ -446,23 +444,32 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                     fetchInvoice(offer: invoice, amountMsat: msatAmount)
                     
                 } else {
-                    guard let amount = amountInput.text else {
-                        self.spinner.removeConnectingView()
-                        showAlert(vc: self, title: "", message: "That offer does not specify an amount, please enter one first.")
-                        return
-                    }
-                    
-                    guard let msatAmount = msatAmount(amountText: amount) else {
-                        self.spinner.removeConnectingView()
-                        showAlert(vc: self, title: "", message: "Unable to convert Core Lightning msat string to int.")
-                        return
-                    }
-                    
-                    fetchInvoice(offer: invoice, amountMsat: msatAmount)
+                    enterAnAmount(invoice)
                 }
+                
             default:
                 processInvoiceToPay(decoded: decoded, invoice: invoice)
             }
+        }
+    }
+    
+    
+    private func enterAnAmount(_ invoice: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let amount = amountInput.text else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "That offer does not specify an amount, please enter one first.")
+                return
+            }
+            
+            guard let msatAmount = msatAmount(amountText: amount) else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to convert Core Lightning msat string to int.")
+                return
+            }
+            
+            fetchInvoice(offer: invoice, amountMsat: msatAmount)
         }
     }
     
@@ -563,54 +570,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    private func pay(invoiceString: String, msat: Int?, invoice: DecodedInvoice) {
-        //bolt11 [amount_msat] [label] [riskfactor] [maxfeepercent] [retry_for] [maxdelay] [exemptfee] [localinvreqid] [exclude] [maxfee] [description]
-        var param:[String:String] = [:]
-        param["bolt11"] = invoiceString
-        
-        if let msat = msat {
-            param["amount_msat"] = "\(msat)"
-        }
-        
-        if let desc = invoice.description {
-            param["description"] = desc
-        } else if let desc = invoice.offerDescription {
-            param["description"] = desc
-        }
-        
-        LightningRPC.sharedInstance.command(method: .pay, params: param) { [weak self] (paid, errorDesc) in
-            guard let self = self else { return }
-            
-            self.spinner.removeConnectingView()
-            
-            guard let paid = paid as? Pay else {
-                showAlert(vc: self, title: "Error", message: errorDesc ?? "unknown error")
-                return
-            }
-            
-            guard paid.status == "complete" else {
-                showAlert(vc: self, title: "Payment failed.", message: errorDesc ?? "Unknown error.")
-                return
-            }
-            
-            let feeMsat = paid.amountSentMsat - paid.amountMsat
-            
-            var amountReceived = ""
-            
-            switch denomination() {
-            case "BTC":
-                amountReceived = paid.amountMsat.msatToBtc
-            case "SATS":
-                amountReceived = paid.amountMsat.msatToSats
-            default:
-                amountReceived = paid.amountMsat.msatToFiat!
-            }
-            
-            showAlert(vc: self, title: "Paid ✓", message: "Paid \(amountReceived) for a fee of \(feeMsat) msats.")
-        }
-    }
-        
-    
     func processBIP21(url: String) {
         let (address, amount, label, message) = AddressParser.parse(url: url)
         
@@ -694,26 +653,9 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             
             vc.fxRate = self.fxRate
             vc.invoice = self.invoice
+            vc.invoiceString = self.invoiceString
             vc.userSpecifiedAmount = self.userSpecifiedAmount
-            self.spinner.removeConnectingView()
-            
-            vc.doneBlock = { [weak self] confirmed in
-                guard let self = self else { return }
-                
-                if confirmed {
-                    self.spinner.addConnectingView(vc: self, description: "paying lightning invoice...")
-                    
-                    if let userSpecifiedAmount = self.userSpecifiedAmount {
-                        self.pay(invoiceString: self.invoiceString, msat: userSpecifiedAmount, invoice: self.invoice!)
-                    } else {
-                        self.pay(invoiceString: self.invoiceString, msat: nil, invoice: self.invoice!)
-                    }
-                    
-                } else {
-                    self.invoice = nil
-                    self.invoiceString = ""
-                }
-            }
+            spinner.removeConnectingView()
             
         default:
             break
