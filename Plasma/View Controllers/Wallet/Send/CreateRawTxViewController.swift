@@ -48,7 +48,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             invoiceAddressLabel.text = "Invoice or offer"
             sweepButton.alpha = 0.3
             sweepButton.isEnabled = false
-            
+            getTotalSpendable()
         }
         
         if withdrawing {
@@ -58,10 +58,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
         
         amountInput.placeholder = "amount in \(denomination())"
-        
-        if paying {
-            getTotalSpendable()
-        }
     }
 
     
@@ -107,11 +103,12 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     
     
     private func getTotalSpendable() {
+        spinner.addConnectingView(vc: self, description: "")
         LightningRPC.sharedInstance.command(method: .listpeerchannels, params: [:]) { [weak self] (listPeerChannels, errorDesc) in
             guard let self = self else { return }
             
             guard let listPeerChannels = listPeerChannels as? ListPeerChannels else {
-                self.spinner.removeConnectingView()
+                spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: errorDesc ?? "Unknown error fetching channels.")
                 return
             }
@@ -119,7 +116,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             let channels = listPeerChannels.channels
             
             guard channels.count > 0 else {
-                self.spinner.removeConnectingView()
+                spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: "No channels yet.")
                 return
             }
@@ -153,6 +150,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
+            
+            spinner.removeConnectingView()
         }
     }
     

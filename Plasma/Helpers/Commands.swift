@@ -41,4 +41,5 @@ public enum LIGHTNING_CLI: String {
     case disconnect = "disconnect"
     case listpeerchannels = "listpeerchannels"
     case sql = "sql"
+    case checkrune = "checkrune"
 }

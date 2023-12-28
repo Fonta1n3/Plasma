@@ -233,15 +233,15 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
         return 50
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard activeChannels.count > 1 else {
-            showAlert(vc: self, title: "You need more then 1 channel to rebalance.", message: "")
-            return
-        }
-        
-        selectedChannel = activeChannels[indexPath.section]
-        promptToRebalanceCL()
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard activeChannels.count > 1 else {
+//            showAlert(vc: self, title: "You need more then 1 channel to rebalance.", message: "")
+//            return
+//        }
+//        
+//        selectedChannel = activeChannels[indexPath.section]
+//        promptToRebalanceCL()
+//    }
     
 //    @objc func closeChannel(_ sender: UIButton) {
 //        promptToCloseChannel(channel: activeChannels[sender.tag])

@@ -105,6 +105,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     
     private func listConfigs() {
+        spinner.addConnectingView(vc: self, description: "fetching config...")
         LightningRPC.sharedInstance.command(method: .listconfigs, params: [:]) { [weak self] (listConfigs, errorDesc) in
             guard let self = self else { return }
                                 
@@ -124,17 +125,22 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     
     private func getIncomingCapacity() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            spinner.label.text = "fetching incoming capacity..."
+        }
+        
         LightningRPC.sharedInstance.command(method: .listpeerchannels, params: [:]) { [weak self] (listPeerChannels, errorDesc) in
             guard let self = self else { return }
             
+            spinner.removeConnectingView()
+            
             guard let listPeerChannels = listPeerChannels as? ListPeerChannels else {
-                self.spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: errorDesc ?? "Unknown error fetching channels.")
                 return
             }
             
             guard listPeerChannels.channels.count > 0 else {
-                self.spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: "No channels yet.")
                 return
             }

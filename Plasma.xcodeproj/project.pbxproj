@@ -1027,10 +1027,6 @@
 		D02094EF2257FB78002E8E7A /* FirstTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTime.swift; sourceTree = "<group>"; };
 		D02094F2225936D2002E8E7A /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
 		D02152DB23666CB400AD9007 /* QuickConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConnect.swift; sourceTree = "<group>"; };
-		D0233F212361E68F0041FFBA /* KeyGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGen.swift; sourceTree = "<group>"; };
-		D0233F232361EA090041FFBA /* Base32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32.swift; sourceTree = "<group>"; };
-		D0233F252361EA380041FFBA /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		D0233F272361EA5F0041FFBA /* shim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shim.swift; sourceTree = "<group>"; };
 		D0257E6424D6C5F5000EB854 /* LightningRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningRPC.swift; sourceTree = "<group>"; };
 		D026E5C7253A79DB001F1054 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		D02958D4235053B300ED8F72 /* SecurityCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenterViewController.swift; sourceTree = "<group>"; };
@@ -3437,17 +3433,6 @@
 			path = "Sub Views";
 			sourceTree = "<group>";
 		};
-		D0233F292361EB8C0041FFBA /* Base32 Key Gen */ = {
-			isa = PBXGroup;
-			children = (
-				D0233F212361E68F0041FFBA /* KeyGen.swift */,
-				D0233F232361EA090041FFBA /* Base32.swift */,
-				D0233F252361EA380041FFBA /* StringExtension.swift */,
-				D0233F272361EA5F0041FFBA /* shim.swift */,
-			);
-			path = "Base32 Key Gen";
-			sourceTree = "<group>";
-		};
 		D0286D6121E2675D00954991 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3484,7 +3469,6 @@
 			isa = PBXGroup;
 			children = (
 				D0E9B63B211A94C600B416E7 /* Utilities.swift */,
-				D0233F292361EB8C0041FFBA /* Base32 Key Gen */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -3972,7 +3956,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4023,7 +4007,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;
