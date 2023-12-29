@@ -268,13 +268,13 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 _ where address.hasPrefix("lnbc"),
                 _ where address.hasPrefix("lnbcrt"):
                 
+                spinner.addConnectingView(vc: self, description: "decoding...")
                 LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": address]) { [weak self] (decoded, errorDesc) in
                     guard let self = self else { return }
                     
-                    guard let decoded = decoded as? DecodedInvoice else {
-                        self.spinner.removeConnectingView()
-                        return
-                    }
+                    spinner.removeConnectingView()
+                    
+                    guard let decoded = decoded as? DecodedInvoice else { return }
                     
                     self.invoice = decoded
                     
@@ -309,11 +309,9 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                         if amountText != "" {
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
-                                
+                                                                
                                 amountInput.text = amountText
                                 amountInput.isUserInteractionEnabled = false
-                                lightningWithdrawOutlet.isEnabled = false
-                                sweepButton.isEnabled = false
                             }
                         } else {
                             DispatchQueue.main.async { [weak self] in
@@ -321,8 +319,16 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                                 
                                 amountInput.isUserInteractionEnabled = true
                                 lightningWithdrawOutlet.isEnabled = true
+                                sweepButton.alpha = 1.0
                                 sweepButton.isEnabled = true
                             }
+                        }
+                    } else {
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            
+                            sweepButton.alpha = 1.0
+                            sweepButton.isEnabled = true
                         }
                     }
                 }
@@ -521,7 +527,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             return Int(dblAmount * 100000000000.0)
             
         case "SATS":
-            let dblAmount = amountText.doubleValue
+            guard let dblAmount = Double(amountText.digits) else { return nil }
             
             guard dblAmount > 0.0 else {
                 self.spinner.removeConnectingView()
@@ -554,6 +560,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
     private func promptToSendLightningPayment(invoice: String, decoded: DecodedInvoice, msat: Int?) {
         self.invoice = decoded
         if let msat = msat {
@@ -565,7 +573,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             
             performSegue(withIdentifier: "segueToLightningConf", sender: self)
         }
-        
     }
     
     
@@ -625,13 +632,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 guard let vc = segue.destination as? QRScannerViewController else { fallthrough }
                 
                 vc.isScanningAddress = true
-                
-                print("scanning")
-                
                 vc.onDoneBlock = { addrss in
                     guard let addrss = addrss else { return }
-                    
-                    print("addrss: \(addrss)")
                     
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
@@ -661,3 +663,4 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
     }
 }
+
