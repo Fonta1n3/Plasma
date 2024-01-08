@@ -158,7 +158,7 @@ class ConfirmLightningPaymentViewController: UIViewController, UINavigationContr
             
             switch denomination() {
             case "BTC":
-                let btcAmount = amountMsat.msatToBtc
+                let btcAmount = amountMsat.msatToBtc.doubleValue.btcBalanceWithSpaces
                 self.amountLabel.text = btcAmount + " btc"
                 
             case "SATS":
