@@ -640,3 +640,7 @@ extension Int32 {
         Bool(truncating: NSNumber(value: self))
     }
 }
+
+extension RangeReplaceableCollection where Self: StringProtocol {
+    var digits: Self { filter(\.isWholeNumber) }
+}

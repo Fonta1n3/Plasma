@@ -232,6 +232,28 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
         }
     }
     
+//    private func checkRune(rune: String?, id: String) {
+//        guard let rune = rune else { return }
+//        
+//        let param: [String: String] = ["rune": rune, "nodeid": id]
+//        
+//        LightningRPC.sharedInstance.command(method: .checkrune, params: param) { (response, errorDesc) in
+//            guard let response = response else {
+//                showAlert(vc: self, title: "", message: errorDesc ?? "Unknown error.")
+//                return
+//            }
+//            
+//            print(response)
+//            
+//            // Display that rune is valid
+//            // Create a rune with restirctions and test it against checkrune...
+//            // Show user their rune status, if its reads only or not etc
+//            
+//            // If true show the option to get fine grained control over the rune.
+//            // Show option to create new rune with stricter permissions if its wide open.
+//        }
+//    }
+    
     func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
         tapGesture.numberOfTapsRequired = 1
@@ -260,14 +282,15 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
                 
                 if let rune = node.rune {
                     runeField.text = decryptedValue(rune)
+                    
+                    if let nodeId = node.nodeId {
+                        let decId = decryptedValue(nodeId)
+                        nodeIdField.text = decId
+                    }
                 }
                                 
                 if let address = node.address {
                     addressField.text = decryptedValue(address)
-                }
-                
-                if let nodeId = node.nodeId {
-                    nodeIdField.text = decryptedValue(nodeId)
                 }
                 
                 portField.text = node.port

@@ -103,7 +103,8 @@ struct PeerChannel: Codable {
 
 // MARK: - Alias
 struct Alias: Codable {
-    let local, remote: String
+    let local: String
+    let remote: String?
 }
 
 // MARK: - ChannelType

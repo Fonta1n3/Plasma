@@ -73,6 +73,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             if ud.object(forKey: "bioMetricsDisabled") == nil {
                 touchIdButton.alpha = 1
                 authenticationWithTouchID()
+            } else {
+                touchIdButton.alpha = 0
             }
 
             if timeToDisable > 2.0 {

@@ -105,6 +105,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     
     private func listConfigs() {
+        spinner.addConnectingView(vc: self, description: "fetching config...")
         LightningRPC.sharedInstance.command(method: .listconfigs, params: [:]) { [weak self] (listConfigs, errorDesc) in
             guard let self = self else { return }
                                 
@@ -124,17 +125,22 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
     
     
     private func getIncomingCapacity() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            spinner.label.text = "fetching incoming capacity..."
+        }
+        
         LightningRPC.sharedInstance.command(method: .listpeerchannels, params: [:]) { [weak self] (listPeerChannels, errorDesc) in
             guard let self = self else { return }
             
+            spinner.removeConnectingView()
+            
             guard let listPeerChannels = listPeerChannels as? ListPeerChannels else {
-                self.spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: errorDesc ?? "Unknown error fetching channels.")
                 return
             }
             
             guard listPeerChannels.channels.count > 0 else {
-                self.spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: "No channels yet.")
                 return
             }
@@ -193,18 +199,15 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
         if let amountString = amountField.text, amountString != "", let amount = Double(amountString) {
             switch denomination() {
             case "BTC":
-                if let amountMsat = amountString.btcToMsatAmount {
-                    param["amount_msat"] = amountMsat
-                }
+                param["amount_msat"] = "\(amount.avoidNotation)btc"
                 
             case "SATS":
-                param["amount_msat"] = "\(Int(amount * 1000))"
+                param["amount_msat"] = "\(Int(amount))sat"
                 
             default:
                 if let fxRate = UserDefaults.standard.object(forKey: "fxRate") as? Double {
                     let btcAmount = (Double(amount) / fxRate).avoidNotation
-                    let amountMsat = Int(Double(btcAmount)! * 100000000000.0)
-                    param["amount_msat"] = "\(amountMsat)"
+                    param["amount_msat"] = "\(btcAmount)btc"
                 }
             }
         } else {
@@ -263,18 +266,15 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
         if let amountString = amountField.text, amountString != "", let amount = Double(amountString) {
             switch denomination() {
             case "BTC":
-                if let _ = amountString.btcToMsatAmount {
-                    param["amount"] = "\(Int(amount * 100000000000.0))"
-                }
+                param["amount"] = "\(amount.avoidNotation)btc"
                 
             case "SATS":
-                param["amount"] = "\(Int(amount * 1000))"
+                param["amount"] = "\(Int(amount))sats"
                 
             default:
                 if let fxRate = UserDefaults.standard.object(forKey: "fxRate") as? Double {
                     let btcAmount = (Double(amount) / fxRate).avoidNotation
-                    let amountMsat = Int(Double(btcAmount)! * 100000000000.0)
-                    param["amount"] = "\(amountMsat)"
+                    param["amount"] = "\(btcAmount)btc"
                 }
             }
         } else {

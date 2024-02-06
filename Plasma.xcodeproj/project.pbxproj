@@ -33,6 +33,7 @@
 		0AA7A6132AD1F40E00E51A52 /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7A6122AD1F40E00E51A52 /* Pay.swift */; };
 		0AA7A6152AD25BB600E51A52 /* NewAddr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7A6142AD25BB600E51A52 /* NewAddr.swift */; };
 		0AA7A6172AD3243C00E51A52 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7A6162AD3243C00E51A52 /* Result.swift */; };
+		0AF3CC0D2B3DD032007ADC4A /* SettingsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF3CC0C2B3DD032007ADC4A /* SettingsDetailTableViewController.swift */; };
 		D00B9A282111427200E8B95A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00B9A272111427200E8B95A /* AppDelegate.swift */; };
 		D00B9A2D2111427200E8B95A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D00B9A2B2111427200E8B95A /* Main.storyboard */; };
 		D00B9A322111427200E8B95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D00B9A312111427200E8B95A /* Assets.xcassets */; };
@@ -1012,6 +1013,7 @@
 		0AA7A6122AD1F40E00E51A52 /* Pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
 		0AA7A6142AD25BB600E51A52 /* NewAddr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddr.swift; sourceTree = "<group>"; };
 		0AA7A6162AD3243C00E51A52 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		0AF3CC0C2B3DD032007ADC4A /* SettingsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailTableViewController.swift; sourceTree = "<group>"; };
 		A084FD782359F7B700DA63CF /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D00B9A242111427200E8B95A /* Plasma.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plasma.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00B9A272111427200E8B95A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1027,10 +1029,6 @@
 		D02094EF2257FB78002E8E7A /* FirstTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTime.swift; sourceTree = "<group>"; };
 		D02094F2225936D2002E8E7A /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
 		D02152DB23666CB400AD9007 /* QuickConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickConnect.swift; sourceTree = "<group>"; };
-		D0233F212361E68F0041FFBA /* KeyGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGen.swift; sourceTree = "<group>"; };
-		D0233F232361EA090041FFBA /* Base32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32.swift; sourceTree = "<group>"; };
-		D0233F252361EA380041FFBA /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		D0233F272361EA5F0041FFBA /* shim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shim.swift; sourceTree = "<group>"; };
 		D0257E6424D6C5F5000EB854 /* LightningRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningRPC.swift; sourceTree = "<group>"; };
 		D026E5C7253A79DB001F1054 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		D02958D4235053B300ED8F72 /* SecurityCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCenterViewController.swift; sourceTree = "<group>"; };
@@ -3330,6 +3328,7 @@
 			children = (
 				D0048C72225F38D70057E21B /* Node Manager */,
 				D0EF29C0216B82B400EB776A /* SettingsViewController.swift */,
+				0AF3CC0C2B3DD032007ADC4A /* SettingsDetailTableViewController.swift */,
 				D00F85192494966D008D7CD3 /* Security Center */,
 			);
 			path = Settings;
@@ -3437,17 +3436,6 @@
 			path = "Sub Views";
 			sourceTree = "<group>";
 		};
-		D0233F292361EB8C0041FFBA /* Base32 Key Gen */ = {
-			isa = PBXGroup;
-			children = (
-				D0233F212361E68F0041FFBA /* KeyGen.swift */,
-				D0233F232361EA090041FFBA /* Base32.swift */,
-				D0233F252361EA380041FFBA /* StringExtension.swift */,
-				D0233F272361EA5F0041FFBA /* shim.swift */,
-			);
-			path = "Base32 Key Gen";
-			sourceTree = "<group>";
-		};
 		D0286D6121E2675D00954991 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3484,7 +3472,6 @@
 			isa = PBXGroup;
 			children = (
 				D0E9B63B211A94C600B416E7 /* Utilities.swift */,
-				D0233F292361EB8C0041FFBA /* Base32 Key Gen */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -3759,6 +3746,7 @@
 				D082397B24DBDB330098D4F4 /* AddPeerViewController.swift in Sources */,
 				0A3B39022ACE4DC1009004BB /* Offer.swift in Sources */,
 				0A59035A269B080700510626 /* ConfirmLightningPaymentViewController.swift in Sources */,
+				0AF3CC0D2B3DD032007ADC4A /* SettingsDetailTableViewController.swift in Sources */,
 				D082397924DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift in Sources */,
 				0AA7A6172AD3243C00E51A52 /* Result.swift in Sources */,
 				0A3B38FE2ACE1816009004BB /* GetInfo.swift in Sources */,
@@ -3972,7 +3960,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4023,7 +4011,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;

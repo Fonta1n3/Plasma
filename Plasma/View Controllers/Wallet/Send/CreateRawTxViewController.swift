@@ -46,12 +46,9 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         if paying {
             lightningWithdrawOutlet.removeFromSuperview()
             invoiceAddressLabel.text = "Invoice or offer"
-            amountInput.alpha = 0.3
             sweepButton.alpha = 0.3
-            amountLabel.alpha = 0.3
-            amountInput.isEnabled = false
             sweepButton.isEnabled = false
-            
+            getTotalSpendable()
         }
         
         if withdrawing {
@@ -61,10 +58,6 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
         
         amountInput.placeholder = "amount in \(denomination())"
-        
-        if paying {
-            getTotalSpendable()
-        }
     }
 
     
@@ -110,11 +103,12 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     
     
     private func getTotalSpendable() {
+        spinner.addConnectingView(vc: self, description: "")
         LightningRPC.sharedInstance.command(method: .listpeerchannels, params: [:]) { [weak self] (listPeerChannels, errorDesc) in
             guard let self = self else { return }
             
             guard let listPeerChannels = listPeerChannels as? ListPeerChannels else {
-                self.spinner.removeConnectingView()
+                spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: errorDesc ?? "Unknown error fetching channels.")
                 return
             }
@@ -122,7 +116,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             let channels = listPeerChannels.channels
             
             guard channels.count > 0 else {
-                self.spinner.removeConnectingView()
+                spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: "No channels yet.")
                 return
             }
@@ -156,6 +150,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
+            
+            spinner.removeConnectingView()
         }
     }
     
@@ -272,13 +268,13 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 _ where address.hasPrefix("lnbc"),
                 _ where address.hasPrefix("lnbcrt"):
                 
+                spinner.addConnectingView(vc: self, description: "decoding...")
                 LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": address]) { [weak self] (decoded, errorDesc) in
                     guard let self = self else { return }
                     
-                    guard let decoded = decoded as? DecodedInvoice else {
-                        self.spinner.removeConnectingView()
-                        return
-                    }
+                    spinner.removeConnectingView()
+                    
+                    guard let decoded = decoded as? DecodedInvoice else { return }
                     
                     self.invoice = decoded
                     
@@ -313,11 +309,9 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                         if amountText != "" {
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
-                                
+                                                                
                                 amountInput.text = amountText
                                 amountInput.isUserInteractionEnabled = false
-                                lightningWithdrawOutlet.isEnabled = false
-                                sweepButton.isEnabled = false
                             }
                         } else {
                             DispatchQueue.main.async { [weak self] in
@@ -325,8 +319,16 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                                 
                                 amountInput.isUserInteractionEnabled = true
                                 lightningWithdrawOutlet.isEnabled = true
+                                sweepButton.alpha = 1.0
                                 sweepButton.isEnabled = true
                             }
+                        }
+                    } else {
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self else { return }
+                            
+                            sweepButton.alpha = 1.0
+                            sweepButton.isEnabled = true
                         }
                     }
                 }
@@ -430,6 +432,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
     private func decodeInvoice(_ invoice: String) {
         spinner.addConnectingView(vc: self, description: "decoding lightning invoice...")
         LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": invoice]) { [weak self] (decoded, errorDesc) in
@@ -446,23 +449,32 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                     fetchInvoice(offer: invoice, amountMsat: msatAmount)
                     
                 } else {
-                    guard let amount = amountInput.text else {
-                        self.spinner.removeConnectingView()
-                        showAlert(vc: self, title: "", message: "That offer does not specify an amount, please enter one first.")
-                        return
-                    }
-                    
-                    guard let msatAmount = msatAmount(amountText: amount) else {
-                        self.spinner.removeConnectingView()
-                        showAlert(vc: self, title: "", message: "Unable to convert Core Lightning msat string to int.")
-                        return
-                    }
-                    
-                    fetchInvoice(offer: invoice, amountMsat: msatAmount)
+                    enterAnAmount(invoice)
                 }
+                
             default:
                 processInvoiceToPay(decoded: decoded, invoice: invoice)
             }
+        }
+    }
+    
+    
+    private func enterAnAmount(_ invoice: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard let amount = amountInput.text else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "That offer does not specify an amount, please enter one first.")
+                return
+            }
+            
+            guard let msatAmount = msatAmount(amountText: amount) else {
+                self.spinner.removeConnectingView()
+                showAlert(vc: self, title: "", message: "Unable to convert Core Lightning msat string to int.")
+                return
+            }
+            
+            fetchInvoice(offer: invoice, amountMsat: msatAmount)
         }
     }
     
@@ -515,7 +527,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             return Int(dblAmount * 100000000000.0)
             
         case "SATS":
-            let dblAmount = amountText.doubleValue
+            guard let dblAmount = Double(amountText.digits) else { return nil }
             
             guard dblAmount > 0.0 else {
                 self.spinner.removeConnectingView()
@@ -548,6 +560,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
     private func promptToSendLightningPayment(invoice: String, decoded: DecodedInvoice, msat: Int?) {
         self.invoice = decoded
         if let msat = msat {
@@ -559,57 +573,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             
             performSegue(withIdentifier: "segueToLightningConf", sender: self)
         }
-        
     }
     
-    
-    private func pay(invoiceString: String, msat: Int?, invoice: DecodedInvoice) {
-        //bolt11 [amount_msat] [label] [riskfactor] [maxfeepercent] [retry_for] [maxdelay] [exemptfee] [localinvreqid] [exclude] [maxfee] [description]
-        var param:[String:String] = [:]
-        param["bolt11"] = invoiceString
-        
-        if let msat = msat {
-            param["amount_msat"] = "\(msat)"
-        }
-        
-        if let desc = invoice.description {
-            param["description"] = desc
-        } else if let desc = invoice.offerDescription {
-            param["description"] = desc
-        }
-        
-        LightningRPC.sharedInstance.command(method: .pay, params: param) { [weak self] (paid, errorDesc) in
-            guard let self = self else { return }
-            
-            self.spinner.removeConnectingView()
-            
-            guard let paid = paid as? Pay else {
-                showAlert(vc: self, title: "Error", message: errorDesc ?? "unknown error")
-                return
-            }
-            
-            guard paid.status == "complete" else {
-                showAlert(vc: self, title: "Payment failed.", message: errorDesc ?? "Unknown error.")
-                return
-            }
-            
-            let feeMsat = paid.amountSentMsat - paid.amountMsat
-            
-            var amountReceived = ""
-            
-            switch denomination() {
-            case "BTC":
-                amountReceived = paid.amountMsat.msatToBtc
-            case "SATS":
-                amountReceived = paid.amountMsat.msatToSats
-            default:
-                amountReceived = paid.amountMsat.msatToFiat!
-            }
-            
-            showAlert(vc: self, title: "Paid ✓", message: "Paid \(amountReceived) for a fee of \(feeMsat) msats.")
-        }
-    }
-        
     
     func processBIP21(url: String) {
         let (address, amount, label, message) = AddressParser.parse(url: url)
@@ -667,13 +632,8 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
                 guard let vc = segue.destination as? QRScannerViewController else { fallthrough }
                 
                 vc.isScanningAddress = true
-                
-                print("scanning")
-                
                 vc.onDoneBlock = { addrss in
                     guard let addrss = addrss else { return }
-                    
-                    print("addrss: \(addrss)")
                     
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
@@ -694,29 +654,13 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             
             vc.fxRate = self.fxRate
             vc.invoice = self.invoice
+            vc.invoiceString = self.invoiceString
             vc.userSpecifiedAmount = self.userSpecifiedAmount
-            self.spinner.removeConnectingView()
-            
-            vc.doneBlock = { [weak self] confirmed in
-                guard let self = self else { return }
-                
-                if confirmed {
-                    self.spinner.addConnectingView(vc: self, description: "paying lightning invoice...")
-                    
-                    if let userSpecifiedAmount = self.userSpecifiedAmount {
-                        self.pay(invoiceString: self.invoiceString, msat: userSpecifiedAmount, invoice: self.invoice!)
-                    } else {
-                        self.pay(invoiceString: self.invoiceString, msat: nil, invoice: self.invoice!)
-                    }
-                    
-                } else {
-                    self.invoice = nil
-                    self.invoiceString = ""
-                }
-            }
+            spinner.removeConnectingView()
             
         default:
             break
         }
     }
 }
+

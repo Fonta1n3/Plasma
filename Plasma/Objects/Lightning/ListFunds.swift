@@ -22,7 +22,8 @@ struct Channel: Codable {
     let fundingOutput: Int
     let fundingTxid: String
     let ourAmountMsat: Int
-    let peerID, shortChannelID, state: String
+    let peerID, state: String
+    let shortChannelID: String?
 
     enum CodingKeys: String, CodingKey {
         case amountMsat = "amount_msat"
