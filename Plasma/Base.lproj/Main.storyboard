@@ -2009,7 +2009,7 @@
             </objects>
             <point key="canvasLocation" x="-7124.4274809160306" y="374.64788732394368"/>
         </scene>
-        <!--Settings v1.0.6-->
+        <!--Settings v1.0.7-->
         <scene sceneID="bVL-7j-ACI">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="6bf-e7-B05" customClass="SettingsViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
@@ -2071,7 +2071,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="DXZ-h2-krB"/>
-                    <navigationItem key="navigationItem" title="Settings v1.0.6" id="7pL-d9-IEb"/>
+                    <navigationItem key="navigationItem" title="Settings v1.0.7" id="7pL-d9-IEb"/>
                     <connections>
                         <outlet property="settingsTable" destination="sk0-2g-NzV" id="aMs-QI-rfg"/>
                         <segue destination="FrY-WR-Inf" kind="show" identifier="goToNodes" id="elX-uE-Zlb"/>
