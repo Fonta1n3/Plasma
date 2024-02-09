@@ -56,7 +56,7 @@
 		D073E16E22558CDE0012A28C /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073E16D22558CDE0012A28C /* CoreDataService.swift */; };
 		D07AED032435B62800C2FADB /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CB48902435B32E0072D1F5 /* Commands.swift */; };
 		D07AED042435B62B00C2FADB /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CB488F2435B32E0072D1F5 /* Entities.swift */; };
-		D082397924DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082397824DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift */; };
+		D082397924DAE4CB0098D4F4 /* NodeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082397824DAE4CB0098D4F4 /* NodeInfoViewController.swift */; };
 		D082397B24DBDB330098D4F4 /* AddPeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082397A24DBDB330098D4F4 /* AddPeerViewController.swift */; };
 		D084960622EC0A94003FE8EB /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = D084960522EC0A94003FE8EB /* LICENSE.md */; };
 		D08A92B5233C979600409D6E /* FiatConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08A92B4233C979600409D6E /* FiatConverter.swift */; };
@@ -1040,7 +1040,7 @@
 		D05D973322647CE60035F1DE /* QRGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRGenerator.swift; sourceTree = "<group>"; };
 		D069052024EA8E95007F939D /* LightningChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningChannelsViewController.swift; sourceTree = "<group>"; };
 		D073E16D22558CDE0012A28C /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
-		D082397824DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningNodeManagerViewController.swift; sourceTree = "<group>"; };
+		D082397824DAE4CB0098D4F4 /* NodeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfoViewController.swift; sourceTree = "<group>"; };
 		D082397A24DBDB330098D4F4 /* AddPeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPeerViewController.swift; sourceTree = "<group>"; };
 		D084960522EC0A94003FE8EB /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		D08A92B4233C979600409D6E /* FiatConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatConverter.swift; sourceTree = "<group>"; };
@@ -3565,7 +3565,7 @@
 		D0EC748D227F5F92001489B9 /* Node Info */ = {
 			isa = PBXGroup;
 			children = (
-				D082397824DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift */,
+				D082397824DAE4CB0098D4F4 /* NodeInfoViewController.swift */,
 				D082397A24DBDB330098D4F4 /* AddPeerViewController.swift */,
 				D069052024EA8E95007F939D /* LightningChannelsViewController.swift */,
 			);
@@ -3747,7 +3747,7 @@
 				0A3B39022ACE4DC1009004BB /* Offer.swift in Sources */,
 				0A59035A269B080700510626 /* ConfirmLightningPaymentViewController.swift in Sources */,
 				0AF3CC0D2B3DD032007ADC4A /* SettingsDetailTableViewController.swift in Sources */,
-				D082397924DAE4CB0098D4F4 /* LightningNodeManagerViewController.swift in Sources */,
+				D082397924DAE4CB0098D4F4 /* NodeInfoViewController.swift in Sources */,
 				0AA7A6172AD3243C00E51A52 /* Result.swift in Sources */,
 				0A3B38FE2ACE1816009004BB /* GetInfo.swift in Sources */,
 				0A4481BC2AB6A7A500D45CAD /* LNUrl.swift in Sources */,
@@ -3960,7 +3960,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4011,7 +4011,7 @@
 					"$(PROJECT_DIR)/FullyNoded/lnsocket/deps/libsodium/libsodium-ios/lib",
 					"$(PROJECT_DIR)/lnsocket/target/ios",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fontaine.plasma;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = com.fontaine.fullynodedmacos;

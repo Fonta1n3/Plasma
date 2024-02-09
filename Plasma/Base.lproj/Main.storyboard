@@ -464,7 +464,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="info.circle" catalog="system"/>
                                 <connections>
-                                    <segue destination="u3j-cd-FEG" kind="show" id="hoV-aa-Sze"/>
+                                    <segue destination="u3j-cd-FEG" kind="show" id="VaF-4T-Z2J"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z7r-JY-1eP">
@@ -1363,7 +1363,7 @@
         <!--Node Info-->
         <scene sceneID="40T-jO-ErY">
             <objects>
-                <viewController id="u3j-cd-FEG" customClass="LightningNodeManagerViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="u3j-cd-FEG" customClass="NodeInfoViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lW0-pM-7bx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1442,7 +1442,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="nodeTable" destination="Nr0-IP-E1K" id="v2R-0a-Otb"/>
+                        <outlet property="nodeTable" destination="Nr0-IP-E1K" id="ua3-8y-fce"/>
                         <segue destination="GlR-4A-eAx" kind="show" identifier="segueToShareLightningUrl" id="7UD-TA-0Dv"/>
                     </connections>
                 </viewController>
@@ -2009,7 +2009,7 @@
             </objects>
             <point key="canvasLocation" x="-7124.4274809160306" y="374.64788732394368"/>
         </scene>
-        <!--Settings v1.0.7-->
+        <!--Settings v1.0.8-->
         <scene sceneID="bVL-7j-ACI">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="6bf-e7-B05" customClass="SettingsViewController" customModule="Plasma" customModuleProvider="target" sceneMemberID="viewController">
@@ -2071,7 +2071,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Settings" id="DXZ-h2-krB"/>
-                    <navigationItem key="navigationItem" title="Settings v1.0.7" id="7pL-d9-IEb"/>
+                    <navigationItem key="navigationItem" title="Settings v1.0.8" id="7pL-d9-IEb"/>
                     <connections>
                         <outlet property="settingsTable" destination="sk0-2g-NzV" id="aMs-QI-rfg"/>
                         <segue destination="FrY-WR-Inf" kind="show" identifier="goToNodes" id="elX-uE-Zlb"/>
@@ -2140,11 +2140,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vY0-oJ-3gC"/>
+        <segue reference="pxd-ci-rQg"/>
         <segue reference="c4y-Xy-Roe"/>
         <segue reference="DLx-HT-rGm"/>
         <segue reference="CQp-9r-70w"/>
-        <segue reference="ZGM-1A-IcN"/>
+        <segue reference="7UD-TA-0Dv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Settings" width="30" height="30"/>

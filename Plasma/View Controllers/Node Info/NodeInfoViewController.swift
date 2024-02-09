@@ -9,14 +9,14 @@
 import UIKit
 
 
-class LightningNodeManagerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate {
+class NodeInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate {
     
     var uri = ""
     var tableArray = [String]()
     var spinner = ConnectingView()
     var info: GetInfo?
     
-    @IBOutlet weak var nodeTable: UITableView!
+    @IBOutlet var nodeTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,8 +118,9 @@ class LightningNodeManagerViewController: UIViewController, UITableViewDataSourc
             }
                         
             for (i, channel) in channels.enumerated() {
-                totalSpendable += channel.spendableMsat
-                totalReceivable += channel.receivableMsat
+                
+                totalSpendable += channel.spendableMsat ?? 0
+                totalReceivable += channel.receivableMsat ?? 0
                 
                 if i + 1 == channels.count {
                     let spendDict:[String:Any] = ["offchainMsatBalance": totalSpendable]

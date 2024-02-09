@@ -122,7 +122,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>So we can upload a QR code from your photo library</string>
+	<string>To scan a LNLink QR code. This makes adding your node easier than entering the credentials manually. QR codes are not saved or uploaded to a server.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>To log into the app with FaceID</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -134,7 +134,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We dont use your location</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>So we can upload a QR code from your photo library</string>
+	<string>To scan a LNLink QR code. This makes adding your node easier than entering the credentials manually. QR codes are not saved or uploaded to a server.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
