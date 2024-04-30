@@ -24,7 +24,7 @@ struct PeerChannel: Codable {
     //let scratchTxid: String
     //let inPaymentsOffered, feeProportionalMillionths, inPaymentsFulfilled, outPaymentsFulfilled: Int
     let ourToSelfDelay, dustLimitMsat: Int?
-    let totalMsat: Int = 0
+    let totalMsat: Int
     //let closeTo: String
     //let inOfferedMsat, outFulfilledMsat: Int
     let shortChannelID: String?
@@ -35,7 +35,7 @@ struct PeerChannel: Codable {
     //let maxTotalHtlcInMsat: Double
     //let theirToSelfDelay: Int
     let closeToAddr: String?
-    let toUsMsat: Int = 0
+    let toUsMsat: Int
     let channelID: String?
     let status: [String]?
     let funding: Funding?
