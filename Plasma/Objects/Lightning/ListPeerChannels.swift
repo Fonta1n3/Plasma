@@ -44,13 +44,13 @@ struct PeerChannel: Codable {
     //let maximumHtlcOutMsat: Int
     let peerConnected: Bool
     let features: [String]
-    let receivableMsat: Int = 0
+    let receivableMsat: Int
     let owner: String?
     //let minToUsMsat, minimumHtlcOutMsat, inFulfilledMsat: Int
     let feerate: Feerate?
     //let outOfferedMsat: Int
     let peerID: String
-    let spendableMsat: Int = 0
+    let spendableMsat: Int
     //let lastTxFeeMsat: Int = 0
     let channelType: ChannelType?
 

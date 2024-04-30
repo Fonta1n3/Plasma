@@ -119,8 +119,8 @@ class NodeInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                         
             for (i, channel) in channels.enumerated() {
                 
-                totalSpendable += channel.spendableMsat ?? 0
-                totalReceivable += channel.receivableMsat ?? 0
+                totalSpendable += channel.spendableMsat
+                totalReceivable += channel.receivableMsat
                 
                 if i + 1 == channels.count {
                     let spendDict:[String:Any] = ["offchainMsatBalance": totalSpendable]

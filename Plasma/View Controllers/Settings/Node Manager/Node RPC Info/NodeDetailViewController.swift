@@ -64,13 +64,28 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
             let host = address + ":" + port
             let nodeId = nodeIdField.text ?? ""
             let rune = runeField.text ?? ""
-            let base64UrlSafe = base64ToBase64url(base64: rune)
-            guard let url = URL(string: "lnlink:" + nodeId + "@" + host + "?token=" + base64UrlSafe) else {
-                showAlert(vc: self, title: "", message: "Invalid url string.")
-                return
+            //let base64UrlSafe = base64ToBase64url(base64: rune)
+                        
+            LightningRPC.sharedInstance.command(method: .checkrune, params: ["rune": rune, "nodeid": nodeId, "method": "pay"]) { (response, errorDesc) in
+                if let response = response as? [String: Any], let valid = response["valid"] as? Bool, valid  {
+                    LightningRPC.sharedInstance.command(method: .createrune, params: ["rune": rune, "restrictions": "readonly"]) { [weak self] (response, errorDesc) in
+                        guard let self = self else { return }
+                        if let response = response as? [String: Any], 
+                            let readOnlyRune = response["rune"] as? String {
+                            let base64UrlSafeReadOnlyRune = self.base64ToBase64url(base64: readOnlyRune)
+                            guard let readOnlyLnLink = URL(string: "lnlink:" + nodeId + "@" + host + "?token=" + base64UrlSafeReadOnlyRune) else {
+                                showAlert(vc: self, title: "", message: "Invalid url string.")
+                                return
+                            }
+                            lnlink = readOnlyLnLink.absoluteString
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                performSegue(withIdentifier: "segueToExportNode", sender: self)
+                            }
+                        }
+                    }
+                }
             }
-            lnlink = url.absoluteString
-            performSegue(withIdentifier: "segueToExportNode", sender: self)
         }
     }
         

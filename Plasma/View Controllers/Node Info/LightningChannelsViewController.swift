@@ -364,7 +364,6 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
     
     
     private func loadChannels() {
-        //spinner.addConnectingView(vc: self, description: "getting channels...")
         activeChannels.removeAll()
         inactiveChannels.removeAll()
         pendingChannels.removeAll()

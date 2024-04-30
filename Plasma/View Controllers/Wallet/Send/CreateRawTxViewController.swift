@@ -124,7 +124,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
             var totalSpendable = 0
             
             for (i, channel) in channels.enumerated() {
-                totalSpendable += channel.spendableMsat ?? 0
+                totalSpendable += channel.spendableMsat
                 
                 if i + 1 == channels.count {
                     var spendableString = ""
