@@ -148,7 +148,7 @@ class InvoiceViewController: UIViewController, UITextFieldDelegate {
             var totalReceivable = 0
             
             for (i, channel) in listPeerChannels.channels.enumerated() {
-                totalReceivable += channel.receivableMsat
+                totalReceivable += channel.receivableMsat ?? 0
                 
                 if i + 1 == listPeerChannels.channels.count {
                     var incomingString = ""

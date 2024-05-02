@@ -114,19 +114,21 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
             
             let channel = activeChannels[indexPath.row]
             headerLabel.text = channel.peerID
+            let spendableMsat = channel.spendableMsat ?? 0
+            let receivableMsat = channel.receivableMsat ?? 0
             
             switch denomination() {
             case "BTC":
-                amountSpendableLabel.text = Double(channel.spendableMsat.msatToBtc)!.btcBalanceWithSpaces
-                amountReceivableLabel.text  = Double(channel.receivableMsat.msatToBtc)!.btcBalanceWithSpaces
+                amountSpendableLabel.text = Double(spendableMsat.msatToBtc)!.btcBalanceWithSpaces
+                amountReceivableLabel.text  = Double(receivableMsat.msatToBtc)!.btcBalanceWithSpaces
                 
             case "SATS":
-                amountSpendableLabel.text = channel.spendableMsat.msatToSat
-                amountReceivableLabel.text  = channel.receivableMsat.msatToSat
+                amountSpendableLabel.text = spendableMsat.msatToSat
+                amountReceivableLabel.text  = receivableMsat.msatToSat
                 
             default:
-                amountSpendableLabel.text = channel.spendableMsat.msatToFiat!
-                amountReceivableLabel.text  = channel.receivableMsat.msatToFiat!
+                amountSpendableLabel.text = spendableMsat.msatToFiat!
+                amountReceivableLabel.text  = receivableMsat.msatToFiat!
             }
             
             let ratio = Double(channel.toUsMsat) / Double(channel.totalMsat)
@@ -399,8 +401,8 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
         var totalReceivable = 0
         
         for (i, channel) in channels.enumerated() {
-            totalSpendable += channel.spendableMsat
-            totalReceivable += channel.receivableMsat
+            totalSpendable += channel.spendableMsat ?? 0
+            totalReceivable += channel.receivableMsat ?? 0
             
             switch channel.state {
             case "CHANNELD_NORMAL":
@@ -505,7 +507,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
     
     private func chooseTheirsCounterpart()  {
         if theirs.count > 0 {
-            let sortedArray = theirs.sorted { $0.receivableMsat < $1.receivableMsat }
+            let sortedArray = theirs.sorted { $0.receivableMsat ?? 0 < $1.receivableMsat ?? 0 }
             guard let sourceShortId = selectedChannel!.shortChannelID else {
                 spinner.removeConnectingView()
                 showAlert(vc: self, title: "", message: "Unable to choose source, no short channel ID.")
@@ -523,7 +525,7 @@ class LightningChannelsViewController: UIViewController, UITableViewDelegate, UI
     
     private func chooseOursCounterpart() {
         if ours.count > 0 {
-            let sortedArray = ours.sorted { $0.spendableMsat < $1.spendableMsat }
+            let sortedArray = ours.sorted { $0.spendableMsat ?? 0 < $1.spendableMsat ?? 0 }
             
             guard let sourceShortId = sortedArray[ours.count - 1].shortChannelID else {
                 spinner.removeConnectingView()
