@@ -143,7 +143,7 @@ class QRScannerViewController: UIViewController {
                             
                             dismiss(animated: true) {
                                 self.stopScanner()
-                                self.onLNLinkDoneBlock!(node)
+                                self.onLNLinkDoneBlock!(NodeStruct(dictionary: node))
                             }
                         }
                         

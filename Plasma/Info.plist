@@ -75,36 +75,12 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
-			<string>ItunesArtwork@2x</string>
+			<string></string>
 			<key>CFBundleURLName</key>
-			<string>com.fontaine.fullynoded</string>
+			<string>com.fontaine.plasma</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>btcrpc</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>CFBundleURLIconFile</key>
-			<string>ItunesArtwork@2x</string>
-			<key>CFBundleURLName</key>
-			<string>com.fontaine.fullynoded</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>btcstandup</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>CFBundleURLIconFile</key>
-			<string>ItunesArtwork@2x</string>
-			<key>CFBundleURLName</key>
-			<string>com.fonatine.fullynoded</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>clightning-rpc</string>
+				<string>lnlink</string>
 			</array>
 		</dict>
 	</array>

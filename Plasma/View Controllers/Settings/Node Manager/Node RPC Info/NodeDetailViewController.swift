@@ -104,7 +104,7 @@ class NodeDetailViewController: UIViewController, UITextFieldDelegate, UINavigat
                 return
             }
             
-            populateFields(node: node)
+            populateFields(node: NodeStruct(dictionary: node))
         }
     }
     

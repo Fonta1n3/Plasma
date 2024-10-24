@@ -435,6 +435,7 @@ class CreateRawTxViewController: UIViewController, UITextFieldDelegate {
     
     private func decodeInvoice(_ invoice: String) {
         spinner.addConnectingView(vc: self, description: "decoding lightning invoice...")
+        
         LightningRPC.sharedInstance.command(method: .decode, params: ["invoice": invoice]) { [weak self] (decoded, errorDesc) in
             guard let self = self else { return }
             

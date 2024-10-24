@@ -13,7 +13,7 @@ class QuickConnect {
     // MARK: QuickConnect uri examples
     /// lnlink:02b10ff0fad12abf6e96730afb98bdbffc8d9ec11af8e7a1cb35ac48a54257a018@127.0.0.1:7171?token=59FSVv_QDQ_kLqZsWiJ9csyYsk0HR-KffUgjyqXkmTY9MA%3D%3D
         
-    class func addNode(urlString: String, completion: @escaping ((node: NodeStruct?, errorMessage: String?)) -> Void) {
+    class func addNode(urlString: String, completion: @escaping ((node:[String:Any]?, errorMessage: String?)) -> Void) {
         
         func get_qs_param(qs: URLComponents, param: String) -> String? {
             return qs.queryItems?.first(where: { $0.name == param })?.value
@@ -34,7 +34,9 @@ class QuickConnect {
             return
         }
         
-        guard var host = url.host else {
+        print("nodeID: \(nodeid)")
+        
+        guard let host = url.host else {
             completion((nil, "No host found in auth qr."))
             return
         }
@@ -51,16 +53,34 @@ class QuickConnect {
             return
         }
         
+        func encryptedValue(_ decryptedValue: Data) -> Data? {
+            return Crypto.encrypt(decryptedValue)
+        }
+        
+        guard let encAddress = encryptedValue(host.utf8)  else {
+            //showAlert(vc: self, title: "", message: "Error encrypting the address.")
+            return
+        }
+        
+        guard let encRune = encryptedValue(token.utf8) else {
+            //showAlert(vc: self, title: "", message: "Error encrypting the rune.")
+            return
+        }
+        
+        guard let encNodeId = encryptedValue(nodeid.utf8) else {
+            //showAlert(vc: self, title: "", message: "Error encrypting the node ID.")
+            return
+        }
+        
         var newNode:[String:Any] = [:]
         newNode["id"] = UUID()
         newNode["label"] = "CLN Node"
-        newNode["nodeId"] = nodeid.utf8
-        newNode["address"] = host.utf8
+        newNode["nodeId"] = encNodeId
+        newNode["address"] = encAddress
         newNode["port"] = "\(port)"
-        newNode["rune"] = token.utf8
+        newNode["rune"] = encRune
         newNode["isActive"] = true
-        
-        completion((NodeStruct(dictionary: newNode), nil))
+        completion((newNode, nil))
         
         
 //        CoreDataService.retrieveEntity(entityName: .nodes) { (nodes) in

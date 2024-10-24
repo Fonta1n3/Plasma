@@ -64,7 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         loginVC.onDoneBlock = { [weak self] in
-            guard let self = self else { return }
+            guard let _ = self else { return }
             
             //prevents a crash
         }
@@ -93,10 +93,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     private func addNode(url: String) {
         QuickConnect.addNode(urlString: url) { (node, _) in
-            guard let _ = node else { return }
+            guard let node = node else { return }
+            // check that the node doesnt already exist before saving it
+            func saveNow() {
+                CoreDataService.saveEntity(dict: node, entityName: .nodes) { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .refreshNode, object: nil, userInfo: nil)
+                        }
+                    }
+                }
+            }
             
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .refreshNode, object: nil, userInfo: nil)
+            CoreDataService.retrieveEntity(entityName: .nodes) { existingNodes in
+                guard let existingNodes = existingNodes, existingNodes.count > 0 else {
+                    saveNow()
+                    return
+                }
+                
+                var nodeAlreadyExists = false
+                
+                for (i, existingNode) in existingNodes.enumerated() {
+                    let existingNodeStruct = NodeStruct(dictionary: existingNode)
+                    let newNodeStruct = NodeStruct(dictionary: node)
+                    
+                    CoreDataService.update(id: existingNodeStruct.id!, keyToUpdate: "isActive", newValue: false, entity: .nodes) { _ in }
+                    
+                    if let existingNodeId = existingNodeStruct.nodeId, 
+                        let newNodeId = newNodeStruct.nodeId,
+                        existingNodeId == newNodeId,
+                        let existingRune = existingNodeStruct.rune,
+                        let newRune = newNodeStruct.rune,
+                        existingRune == newRune,
+                        let existingAddress = existingNodeStruct.address,
+                        let newAddress = newNodeStruct.address,
+                        existingAddress == newAddress,
+                        existingNodeStruct.port == newNodeStruct.port  {
+                        nodeAlreadyExists = true
+                    }
+                    
+                    if i + 1 == existingNodes.count {
+                        if !nodeAlreadyExists {
+                            saveNow()
+                        }
+                    }
+                }
             }
         }
     }

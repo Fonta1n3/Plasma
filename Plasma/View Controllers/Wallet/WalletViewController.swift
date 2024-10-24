@@ -36,7 +36,7 @@ class WalletViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(deepLinkAdded(_:)), name: .refreshNode, object: nil)
         // Do any additional setup after loading the view.
         if !firstTimeHere() {
             showAlert(vc: self, title: "", message: "Critical error setting our encryption key.")
@@ -87,6 +87,10 @@ class WalletViewController: UIViewController {
             }
         }
     }
+    
+//    @objc func loadDataNow() {
+//        loadData()
+//    }
     
     
     private func setIcon() {
@@ -218,6 +222,11 @@ class WalletViewController: UIViewController {
             refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshData(_:)))
             navigationItem.setRightBarButton(refreshButton, animated: true)
         }
+    }
+    
+    @objc func deepLinkAdded(_ sender: Any) {
+        showAlert(vc: self, title: "", message: "Node added via lnlink ✓")
+        refreshData(true)
     }
     
     

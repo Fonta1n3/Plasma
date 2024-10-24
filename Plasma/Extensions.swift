@@ -417,6 +417,8 @@ public extension Double {
         
         if self == 0 {
             btcBalance = "0.00 000 000"
+        } else if self == 1 || self == -1.0 {
+            btcBalance = "1.00 000 000"
         } else {
             var decimalLocation = 0
             var btcBalanceArray:[String] = []
@@ -449,37 +451,6 @@ public extension Double {
     }
 }
 
-//public extension Int64 {
-//    var msatToBtc: String {
-//        let floatMultiplier = Float(100000000000.0)
-//        let amountBtc = (Double(Float(self) / floatMultiplier)).avoidNotation
-//        return amountBtc
-//    }
-//    
-//    var msatToSat: String {
-//        let floatMultiplier = Float(1000.0)
-//        let amountSat = Int((Float(self) / floatMultiplier))
-//        return amountSat.withCommas
-//    }
-//    
-//    var msatToFiat: String? {
-//        guard let fxRate = UserDefaults.standard.object(forKey: "fxRate") as? Double else { return nil }
-//        let floatMultiplier = 100000000000.0
-//        let amountBtc = (Double(self) / floatMultiplier).avoidNotation
-//        let amountFiat = (Double(amountBtc)! * fxRate).rounded(toPlaces: 2)
-//        let currency = UserDefaults.standard.object(forKey: "currency") as? String ?? "USD"
-//        var symbol = "$"
-//        for curr in currencies {
-//            for (key, value) in curr {
-//                if key == currency {
-//                    symbol = value
-//                }
-//            }
-//        }
-//        return "\(symbol)\(amountFiat.withCommas)"
-//        
-//    }
-//}
 
 public extension Int {
     
